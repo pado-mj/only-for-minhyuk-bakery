@@ -41,7 +41,7 @@ export default function CandlesPage() {
       <div className="mt-5 space-y-4">
         <CandleRow
           label={t.candles.classic}
-          preview={<ClassicCandle className="h-14 w-6" />}
+          preview={<ClassicCandle lit={false} className="h-14 w-6" />}
           count={classicCount}
           min={CANDLE_LIMITS.classic.min}
           max={CANDLE_LIMITS.classic.max}
@@ -52,7 +52,7 @@ export default function CandlesPage() {
         />
         <CandleRow
           label={t.candles.heart}
-          preview={<HeartCandle className="h-14 w-7" />}
+          preview={<HeartCandle lit={false} className="h-14 w-7" />}
           count={heartCount}
           min={CANDLE_LIMITS.heart.min}
           max={CANDLE_LIMITS.heart.max}
@@ -63,7 +63,7 @@ export default function CandlesPage() {
         />
         <CandleRow
           label={t.candles.dog}
-          preview={<DogCandle className="h-14 w-7" />}
+          preview={<DogCandle lit={false} className="h-14 w-7" />}
           count={dogCount}
           min={CANDLE_LIMITS.dog.min}
           max={CANDLE_LIMITS.dog.max}
@@ -87,7 +87,7 @@ export default function CandlesPage() {
                 onClick={() => setDigit(d)}
                 className={`shrink-0 rounded-lg border-2 p-1 ${digit === d ? "border-berry" : "border-transparent"}`}
               >
-                <NumberCandle digit={d} className="h-12 w-6" />
+                <NumberCandle digit={d} lit={false} className="h-12 w-7" />
               </button>
             ))}
           </div>

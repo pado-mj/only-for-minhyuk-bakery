@@ -4,7 +4,6 @@ import { Suspense, useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import { CakeCanvas } from "@/components/cake/CakeCanvas";
-import { createSupabaseClient } from "@/lib/supabase/client";
 import { useI18n } from "@/lib/i18n/context";
 import { useLastCreatedStore } from "@/store/lastCreatedStore";
 import type { CakeRecord } from "@/types/cake";
@@ -23,39 +22,10 @@ function CompleteContent() {
   const record = lastCreated?.publicId === publicId ? lastCreated : fetched;
 
   useEffect(() => {
-    // Direct load / refresh of this URL loses the in-memory "just created"
-    // record — fall back to reading it straight from Supabase by public id.
+    // The completion page normally uses the in-memory record from the just-finished submission.
+    // Direct refresh is handled by the public cake detail route instead of exposing Supabase credentials.
     if (lastCreated?.publicId === publicId || !publicId) return;
-    let cancelled = false;
-    createSupabaseClient()
-      .from("cakes")
-      .select(
-        "id, public_id, public_number, nickname, country, letter, cake_data, view_count, created_at, status"
-      )
-      .eq("public_id", publicId)
-      .maybeSingle()
-      .then(({ data }) => {
-        if (cancelled) return;
-        if (!data) {
-          setFetched(null);
-          return;
-        }
-        setFetched({
-          id: data.id,
-          publicId: data.public_id,
-          publicNumber: data.public_number,
-          nickname: data.nickname,
-          country: data.country ?? undefined,
-          letter: data.letter,
-          cakeData: data.cake_data,
-          viewCount: data.view_count,
-          createdAt: data.created_at,
-          status: data.status,
-        });
-      });
-    return () => {
-      cancelled = true;
-    };
+    setFetched(null);
   }, [publicId, lastCreated]);
 
   if (!record) {

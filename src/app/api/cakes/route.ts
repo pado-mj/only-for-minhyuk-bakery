@@ -107,7 +107,7 @@ export async function POST(request: Request) {
     return NextResponse.json({ error: result.error }, { status: 400 });
   }
 
-  if (!process.env.NEXT_PUBLIC_SUPABASE_URL || !process.env.SUPABASE_SERVICE_ROLE_KEY) {
+  if (!process.env.SUPABASE_URL || !process.env.SUPABASE_SERVICE_ROLE_KEY) {
     return NextResponse.json(
       { error: "Supabase is not configured yet. This endpoint is ready for Phase 3." },
       { status: 501 }
@@ -125,6 +125,7 @@ export async function POST(request: Request) {
       country: result.data.country,
       letter: result.data.letter,
       cake_data: result.data.cakeData,
+      final_image_url: "",
       status: "published",
     })
     .select("public_id, public_number")

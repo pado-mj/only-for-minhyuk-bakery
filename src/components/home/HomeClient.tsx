@@ -38,6 +38,7 @@ export function HomeClient({
         <p className="mx-auto mt-2 max-w-[280px] text-sm text-ink-soft">
           {t.common.tagline}
         </p>
+        <p className="mx-auto mt-2 max-w-[300px] text-[11px] font-semibold text-berry/80">{t.home.scrollHint}</p>
 
         <div className="mt-5 flex items-center justify-center gap-4 text-xs font-semibold text-berry">
           <span>{stats.total} {t.home.cakesUnit}</span>
