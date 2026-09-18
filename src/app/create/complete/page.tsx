@@ -4,12 +4,13 @@ import { Suspense, useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import { CakeCanvas } from "@/components/cake/CakeCanvas";
+import { LetterCard } from "@/components/cake/LetterCard";
 import { useI18n } from "@/lib/i18n/context";
 import { useLastCreatedStore } from "@/store/lastCreatedStore";
 import type { CakeRecord } from "@/types/cake";
 
 function CompleteContent() {
-  const { t } = useI18n();
+  const { t, locale } = useI18n();
   const searchParams = useSearchParams();
   const publicId = searchParams.get("id") ?? "";
   const lastCreated = useLastCreatedStore((s) => s.record);
@@ -17,6 +18,7 @@ function CompleteContent() {
   const [copied, setCopied] = useState(false);
   const [saving, setSaving] = useState(false);
   const [saveError, setSaveError] = useState(false);
+  const [letterOpen, setLetterOpen] = useState(false);
   const exportRef = useRef<HTMLDivElement>(null);
 
   const record = lastCreated?.publicId === publicId ? lastCreated : fetched;
@@ -128,13 +130,25 @@ function CompleteContent() {
         {copied ? t.complete.linkCopied : saveError ? t.complete.saveError : ""}
       </div>
 
-      <div className="mt-8 flex w-full max-w-xs flex-col gap-2.5">
-        <Link
-          href={`/cake/${record.publicId}`}
-          className="rounded-full border border-ink/15 py-3 text-xs font-bold text-ink"
-        >
-          {t.complete.viewMine}
-        </Link>
+      <div className="mt-8 w-full max-w-xs">
+        {letterOpen ? (
+          <LetterCard
+            nickname={record.nickname}
+            country={record.country}
+            letter={record.letter}
+            locale={locale}
+          />
+        ) : (
+          <button
+            onClick={() => setLetterOpen(true)}
+            className="w-full rounded-full bg-berry py-3 text-xs font-bold text-cream shadow-lg"
+          >
+            {t.cakeDetail.openLetter}
+          </button>
+        )}
+      </div>
+
+      <div className="mt-4 flex w-full max-w-xs flex-col gap-2.5">
         <Link href="/" className="rounded-full border border-ink/15 py-3 text-xs font-bold text-ink">
           {t.complete.backToTable}
         </Link>
