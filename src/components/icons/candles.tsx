@@ -87,7 +87,20 @@ export function ClassicCandle({
 }
 
 export function HeartCandle({ lit = true, className }: { lit?: boolean; className?: string }) {
-  return <ImageCandle {...HEART_SOURCE} lit={lit} className={className} />;
+  return (
+    <div className={`relative ${className ?? ""}`}>
+      <div
+        aria-hidden
+        className="absolute left-[47%] top-[36%] h-[58%] w-[13%] -translate-x-1/2 rounded-full"
+        style={{
+          background:
+            "repeating-linear-gradient(100deg, #EFA9B2 0 3px, #F7C3C8 3px 6px, #D98B98 6px 7px)",
+          opacity: 0.9,
+        }}
+      />
+      <ImageCandle {...HEART_SOURCE} lit={lit} className="absolute inset-0 h-full w-full" />
+    </div>
+  );
 }
 
 export function DogCandle({ lit = true, className }: { lit?: boolean; className?: string }) {
@@ -104,6 +117,6 @@ export function NumberCandle({
   className?: string;
 }) {
   const source = NUMBER_SOURCES[digit] ?? NUMBER_SOURCES[0];
-  const normalizeClass = digit === 0 ? "scale-[1.42]" : digit === 1 ? "scale-[1.62]" : "";
+  const normalizeClass = digit === 0 ? "scale-[1.42]" : digit === 1 ? "scale-[3.24]" : "";
   return <ImageCandle {...source} lit={lit} className={`${className ?? ""} ${normalizeClass}`} />;
 }

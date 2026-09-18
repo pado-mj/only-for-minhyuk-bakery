@@ -10,21 +10,21 @@ export function CakeTableItem({ cake }: { cake: CakeRecord }) {
   return (
     <Link
       href={`/cake/${cake.publicId}`}
-      className="paper-card flex items-center gap-4 p-3 transition-transform active:scale-[0.98]"
+      className="paper-card block p-[10px] transition-transform active:scale-[0.98]"
     >
-      <div className="w-24 shrink-0">
+      <div className="w-full">
         <CakeCanvas cakeData={cake.cakeData} candlesLit={false} />
       </div>
-      <div className="min-w-0 flex-1">
-        <div className="flex items-center gap-1.5 text-sm font-semibold text-ink">
-          <span className="truncate">{cake.nickname}</span>
+      <div className="px-1 pb-1 pt-2.5">
+        <div className="flex min-w-0 items-center justify-between gap-2 text-xs font-semibold text-ink">
+          <span className="min-w-0 truncate">{cake.nickname}</span>
           {cake.country && (
-            <span className="shrink-0 text-xs text-ink-soft">
+            <span className="shrink-0 whitespace-nowrap text-[10px] font-normal text-ink-soft">
               {countryFlagEmoji(cake.country)} <CountryLabel code={cake.country} locale={locale} />
             </span>
           )}
         </div>
-        <p className="mt-1 line-clamp-2 text-xs leading-relaxed text-ink-soft">
+        <p className="mt-1.5 line-clamp-2 min-h-[2.5rem] text-[11px] leading-5 text-ink-soft">
           {cake.letter}
         </p>
       </div>

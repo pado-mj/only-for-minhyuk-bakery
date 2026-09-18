@@ -19,7 +19,8 @@ export function CakeBase({
         className="absolute inset-0"
         style={{
           backgroundColor: color,
-          mixBlendMode: "color",
+          mixBlendMode: "multiply",
+          opacity: 0.62,
           WebkitMaskImage: `url(${CAKE_IMAGE})`,
           maskImage: `url(${CAKE_IMAGE})`,
           WebkitMaskSize: "contain",

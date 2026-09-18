@@ -58,7 +58,7 @@ export interface CakeRecord {
 export const CANVAS_SIZE = 1080;
 
 export const CANDLE_LIMITS = {
-  classic: { min: 1, max: 33 },
+  classic: { min: 0, max: 33 },
   heart: { min: 0, max: 3 },
   dog: { min: 0, max: 3 },
   number: { min: 0, max: 16 },
