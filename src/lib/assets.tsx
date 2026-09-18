@@ -73,7 +73,7 @@ export interface CakeDesignAsset {
 export const CAKE_DESIGNS: CakeDesignAsset[] = [
   { id: "classic", labelKo: "클래식", labelEn: "Classic", labelJa: "クラシック", imageSrc: "/assets/cake/cake-base.png" },
   { id: "round", labelKo: "홀케이크", labelEn: "Round Cake", labelJa: "ホールケーキ", imageSrc: "/assets/cake/cake-round.png" },
-  { id: "slice", labelKo: "조각케이크", labelEn: "Cake Slice", labelJa: "ショートケーキ", imageSrc: "/assets/cake/cake-slice.png" },
+  { id: "ruffle", labelKo: "러플 케이크", labelEn: "Ruffle Cake", labelJa: "ラッフルケーキ", imageSrc: "/assets/cake/cake-ruffle.png" },
   { id: "two-tier", labelKo: "2단 케이크", labelEn: "Two-tier Cake", labelJa: "2段ケーキ", imageSrc: "/assets/cake/cake-two-tier.png" },
   { id: "cut", labelKo: "잘린 홀케이크", labelEn: "Cut Cake", labelJa: "カットケーキ", imageSrc: "/assets/cake/cake-cut.png" },
 ];
