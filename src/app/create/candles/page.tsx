@@ -34,7 +34,8 @@ export default function CandlesPage() {
   return (
     <div className="px-4">
       <h1 className="mb-1 text-center text-sm font-bold text-ink">{t.candles.title}</h1>
-      <p className="mb-3 text-center text-xs text-ink-soft">{t.candles.subtitle}</p>
+      <p className="mb-1 text-center text-xs text-ink-soft">{t.candles.subtitle}</p>
+      <p className="mb-3 text-center text-[11px] font-semibold text-berry">{t.candles.birthdayHint}</p>
 
       <CanvasStage showCandlesOnly />
 
