@@ -66,7 +66,6 @@ export function BirthdayTable({
 
   return (
     <div className="px-3 pb-28 pt-4">
-      <p className="mb-5 text-center text-xs text-ink-soft">{t.home.scrollHint}</p>
       <div className="grid grid-cols-2 gap-3">
         {visible.map((cake) => (
           <div key={cake.publicId}>
