@@ -80,7 +80,7 @@ export default function ReviewPage() {
 
       <div className="mt-5 flex gap-2">
         <button
-          onClick={() => router.push("/create/decorate")}
+          onClick={() => router.push("/create/letter")}
           disabled={submitting}
           className="flex-1 rounded-full bg-paper-dark py-3.5 text-sm font-bold text-ink-soft disabled:opacity-50"
         >
