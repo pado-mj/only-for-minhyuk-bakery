@@ -21,10 +21,12 @@ export function EditableObject({
   object,
   stageRef,
   isSelected,
+  candlesLit = false,
 }: {
   object: CanvasObject;
   stageRef: React.RefObject<HTMLDivElement | null>;
   isSelected: boolean;
+  candlesLit?: boolean;
 }) {
   const selectObject = useEditorStore((s) => s.selectObject);
   const updateObjectTransform = useEditorStore((s) => s.updateObjectTransform);
@@ -121,7 +123,7 @@ export function EditableObject({
       onPointerDown={onDragStart}
     >
       <div className={isSelected ? "outline outline-2 outline-dashed outline-berry outline-offset-4 rounded-lg" : ""}>
-        <CanvasObjectSprite object={object} lit />
+        <CanvasObjectSprite object={object} lit={candlesLit} />
       </div>
       {isSelected && (
         <div

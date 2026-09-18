@@ -104,6 +104,6 @@ export function NumberCandle({
   className?: string;
 }) {
   const source = NUMBER_SOURCES[digit] ?? NUMBER_SOURCES[0];
-  const normalizeClass = digit === 0 ? "scale-[1.42]" : digit === 1 ? "scale-[1.28]" : "";
+  const normalizeClass = digit === 0 ? "scale-[1.42]" : digit === 1 ? "scale-[1.62]" : "";
   return <ImageCandle {...source} lit={lit} className={`${className ?? ""} ${normalizeClass}`} />;
 }

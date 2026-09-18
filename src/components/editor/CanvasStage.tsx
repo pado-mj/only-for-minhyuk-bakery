@@ -28,7 +28,7 @@ export function CanvasStage({ showCandlesOnly = false }: { showCandlesOnly?: boo
         <CakeBase color={present.cakeColor} className="w-full" />
       </div>
       {sorted.map((object) => (
-        <EditableObject key={object.id} object={object} stageRef={stageRef} isSelected={selectedId === object.id} />
+        <EditableObject key={object.id} object={object} stageRef={stageRef} isSelected={selectedId === object.id} candlesLit={false} />
       ))}
     </div>
   );
