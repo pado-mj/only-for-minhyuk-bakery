@@ -7,9 +7,9 @@
   --color-paper-dark: #ecdfc4;
   --color-ink: #3a2e22;
   --color-ink-soft: #7a6a52;
-  --color-blush: #e2708a;
-  --color-berry: #c24b5c;
-  --color-navy: #2f4157;
+  --color-blush: #7fa8d1;
+  --color-berry: #355f8a;
+  --color-navy: #243a56;
   --color-butter: #f2c94c;
   --color-sage: #6fa858;
 
@@ -105,4 +105,15 @@ body {
 }
 .candle-flame {
   animation: flicker 1.6s ease-in-out infinite;
+}
+
+
+/* Home bakery marquee */
+.bakery-awning { position: relative; width: calc(100% + 40px); margin-left: -20px; margin-top: 2px; }
+.bakery-awning svg { display: block; width: 100%; height: auto; }
+.bakery-awning__title {
+  position: absolute; left: 12%; right: 12%; top: 10%; height: 31%;
+  display: flex; align-items: center; justify-content: center; padding: 0 10px;
+  color: var(--color-navy); font-size: clamp(15px, 4.4vw, 21px);
+  font-weight: 900; letter-spacing: 0.025em; line-height: 1.05; text-transform: uppercase;
 }
