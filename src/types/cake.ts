@@ -35,7 +35,9 @@ export interface CakeBackground {
 
 export interface CakeData {
   background: CakeBackground;
-  cakeColor: string;
+  /** Legacy field kept for already-published cakes. New cakes do not tint artwork. */
+  cakeColor?: string;
+  cakeDesign?: string;
   objects: CanvasObject[];
 }
 
