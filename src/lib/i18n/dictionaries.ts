@@ -66,6 +66,7 @@ export const dictionaries = {
     candles: {
       title: "소원 빌기",
       subtitle: "케이크에 초를 꽂아 보세요",
+      birthdayHint: "초를 꽂으면 생일엔 불이 밝혀질 거예요!",
       classic: "클래식 캔들",
       heart: "하트 캔들",
       dog: "강아지 캔들",
@@ -182,6 +183,7 @@ export const dictionaries = {
     candles: {
       title: "Make a wish",
       subtitle: "Add candles to your cake",
+      birthdayHint: "Add candles now, and they’ll light up on his birthday!",
       classic: "Classic candle",
       heart: "Heart candle",
       dog: "Dog candle",
@@ -298,6 +300,7 @@ export const dictionaries = {
     candles: {
       title: "願いを込めて",
       subtitle: "ケーキにろうそくを立てよう",
+      birthdayHint: "キャンドルを立てると、誕生日に火が灯ります！",
       classic: "クラシックキャンドル",
       heart: "ハートキャンドル",
       dog: "犬キャンドル",
