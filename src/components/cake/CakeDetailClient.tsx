@@ -8,7 +8,6 @@ import { LetterCard } from "@/components/cake/LetterCard";
 import { CountryLabel } from "@/components/ui/CountryLabel";
 import { isBirthdayLive } from "@/lib/birthday";
 import { countryFlagEmoji } from "@/lib/countries";
-import { formatDate } from "@/lib/date";
 import { useI18n } from "@/lib/i18n/context";
 import type { CakeRecord } from "@/types/cake";
 
@@ -92,13 +91,10 @@ export function CakeDetailClient({ record }: { record: CakeRecord | null }) {
             </span>
           )}
         </div>
-        <p className="mt-1 text-[11px] text-ink-soft">
-          #{record.publicNumber} · {t.cakeDetail.created}{" "}
-          {formatDate(record.createdAt, locale)}
-        </p>
+
       </div>
 
-      <div className="mt-6">
+      <div className="mt-6 min-h-[340px]">
         <AnimatePresence>
           {phase === "revealed" ? (
             <motion.div key="letter" initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }}>
