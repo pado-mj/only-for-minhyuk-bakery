@@ -5,6 +5,11 @@ import "./globals.css";
 export const metadata: Metadata = {
   title: "Only For Minhyuk Bakery",
   description: "2026. 11. 03 HBD MH 💙",
+  icons: {
+    icon: "/assets/fabicon.png",
+    shortcut: "/assets/fabicon.png",
+    apple: "/assets/fabicon.png",
+  },
   openGraph: {
     title: "Only For Minhyuk Bakery",
     description: "2026. 11. 03 HBD MH 💙",
