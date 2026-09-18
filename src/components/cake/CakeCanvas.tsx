@@ -24,14 +24,19 @@ export function CakeCanvas({
   rounded?: boolean;
   branding?: { nickname: string; publicNumber: number };
 }) {
-  const sorted = [...cakeData.objects].sort((a, b) => a.layer - b.layer || a.zIndex - b.zIndex);
+  // Legacy v0.4 rows may not contain the newer background/cakeColor/objects shape.
+  // Normalize at render time so existing published cakes remain readable.
+  const backgroundColor = cakeData?.background?.color ?? "#F6DCC6";
+  const cakeColor = cakeData?.cakeColor ?? "#F3D9B1";
+  const objects = Array.isArray(cakeData?.objects) ? cakeData.objects : [];
+  const sorted = [...objects].sort((a, b) => a.layer - b.layer || a.zIndex - b.zIndex);
   return (
     <div
       className={`paper-texture relative aspect-square w-full overflow-hidden ${rounded ? "rounded-2xl" : ""} ${className}`}
-      style={{ background: backgroundGradient(cakeData.background.color), containerType: "inline-size" }}
+      style={{ background: backgroundGradient(backgroundColor), containerType: "inline-size" }}
     >
       <div className="absolute left-1/2 top-[58%] w-[72%] -translate-x-1/2 -translate-y-1/2">
-        <CakeBase color={cakeData.cakeColor} className="w-full" />
+        <CakeBase color={cakeColor} className="w-full" />
       </div>
       {sorted.map((object) => {
         const basePercent = BASE_SIZE_PERCENT[object.type] ?? 14;
