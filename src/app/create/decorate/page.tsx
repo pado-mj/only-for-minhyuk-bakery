@@ -5,11 +5,12 @@ import { useRouter } from "next/navigation";
 import { CanvasStage } from "@/components/editor/CanvasStage";
 import { SelectionToolbar } from "@/components/editor/SelectionToolbar";
 import { ColorPicker } from "@/components/editor/ColorPicker";
+import { CakePicker } from "@/components/editor/CakePicker";
 import { DecorationPicker } from "@/components/editor/DecorationPicker";
 import { ImageUploader } from "@/components/editor/ImageUploader";
 import { TopperPicker } from "@/components/editor/TopperPicker";
 import { ConfirmDialog } from "@/components/ui/ConfirmDialog";
-import { CAKE_COLOR_PRESETS, BACKGROUND_COLOR_PRESETS } from "@/lib/assets";
+import { BACKGROUND_COLOR_PRESETS } from "@/lib/assets";
 import { useI18n } from "@/lib/i18n/context";
 import { useEditorStore } from "@/store/editorStore";
 import { useSubmissionStore } from "@/store/submissionStore";
@@ -24,7 +25,6 @@ export default function DecoratePage() {
 
   const present = useEditorStore((s) => s.present);
   const setBackgroundColor = useEditorStore((s) => s.setBackgroundColor);
-  const setCakeColor = useEditorStore((s) => s.setCakeColor);
   const undo = useEditorStore((s) => s.undo);
   const redo = useEditorStore((s) => s.redo);
   const resetCake = useEditorStore((s) => s.resetCake);
@@ -91,13 +91,7 @@ export default function DecoratePage() {
             onChange={(hex) => setBackgroundColor(hex, "custom")}
           />
         )}
-        {tab === "cake" && (
-          <ColorPicker
-            presets={CAKE_COLOR_PRESETS}
-            value={present.cakeColor}
-            onChange={(hex) => setCakeColor(hex)}
-          />
-        )}
+        {tab === "cake" && <CakePicker />}
         {tab === "decorations" && <DecorationPicker />}
         {tab === "myImage" && <ImageUploader />}
         {tab === "topper" && <TopperPicker />}
