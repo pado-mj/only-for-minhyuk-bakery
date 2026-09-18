@@ -4,7 +4,7 @@ import { useRef, useState } from "react";
 import { useI18n } from "@/lib/i18n/context";
 import { useEditorStore } from "@/store/editorStore";
 
-const MAX_BYTES = 2 * 1024 * 1024;
+const MAX_BYTES = 30 * 1024 * 1024;
 const ACCEPTED = ["image/png", "image/jpeg", "image/webp"];
 
 export function ImageUploader() {
@@ -59,7 +59,7 @@ export function ImageUploader() {
           e.target.value = "";
         }}
       />
-      <p className="mt-2 text-center text-[11px] text-ink-soft">{t.editor.uploadHint}</p>
+      <p className="mt-2 whitespace-pre-line text-center text-[11px] leading-relaxed text-ink-soft">{t.editor.uploadHint}</p>
       {error && <p className="mt-2 text-center text-xs font-semibold text-berry">{error}</p>}
     </div>
   );
