@@ -25,7 +25,7 @@ export function LetterCard({
         className="absolute inset-0 h-full w-full object-cover"
         draggable={false}
       />
-      <div className="relative min-h-[280px] p-6 pt-12">
+      <div className="relative h-[320px] overflow-y-auto p-6 pt-12">
         <div className="flex items-center gap-1.5 text-sm font-bold text-ink">
           <span>{nickname}</span>
           {country && (
