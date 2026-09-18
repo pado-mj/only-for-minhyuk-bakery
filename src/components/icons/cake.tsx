@@ -1,24 +1,27 @@
-const CAKE_IMAGE = "/assets/cake/cake-base.png";
-const CAKE_ASPECT = "900 / 709";
+import { getCakeDesign } from "@/lib/assets";
 
-/**
- * Cake artwork is rendered exactly as authored.
- * Do not apply runtime tinting or color overlays.
- */
+/** Cake artwork is rendered exactly as authored. No runtime tinting. */
 export function CakeBase({
+  designId = "classic",
   className = "",
 }: {
-  color?: string;
+  designId?: string;
   className?: string;
 }) {
+  const design = getCakeDesign(designId);
   return (
-    <div className={`relative ${className}`} style={{ aspectRatio: CAKE_ASPECT }}>
+    <div className={`relative aspect-square ${className}`}>
       {/* eslint-disable-next-line @next/next/no-img-element */}
       <img
-        src={CAKE_IMAGE}
+        src={design.imageSrc}
         alt=""
         className="absolute inset-0 h-full w-full object-contain"
         draggable={false}
+        onError={(event) => {
+          if (!event.currentTarget.src.endsWith("/assets/cake/cake-base.png")) {
+            event.currentTarget.src = "/assets/cake/cake-base.png";
+          }
+        }}
       />
     </div>
   );
