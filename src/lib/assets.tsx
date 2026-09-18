@@ -62,13 +62,25 @@ export function getDecorationAsset(id: string) {
   return DECORATION_ASSETS.find((a) => a.id === id);
 }
 
-export const CAKE_COLOR_PRESETS = [
-  { id: "cream", label: "Cream", hex: "#F3D9B1" },
-  { id: "ivory", label: "Ivory", hex: "#F7EFDD" },
-  { id: "yellow", label: "Yellow", hex: "#F2C94C" },
-  { id: "blue", label: "Blue", hex: "#A9C7E0" },
-  { id: "chocolate", label: "Chocolate", hex: "#6B4423" },
+export interface CakeDesignAsset {
+  id: string;
+  labelKo: string;
+  labelEn: string;
+  labelJa: string;
+  imageSrc: string;
+}
+
+export const CAKE_DESIGNS: CakeDesignAsset[] = [
+  { id: "classic", labelKo: "클래식", labelEn: "Classic", labelJa: "クラシック", imageSrc: "/assets/cake/cake-base.png" },
+  { id: "round", labelKo: "홀케이크", labelEn: "Round Cake", labelJa: "ホールケーキ", imageSrc: "/assets/cake/cake-round.png" },
+  { id: "slice", labelKo: "조각케이크", labelEn: "Cake Slice", labelJa: "ショートケーキ", imageSrc: "/assets/cake/cake-slice.png" },
+  { id: "two-tier", labelKo: "2단 케이크", labelEn: "Two-tier Cake", labelJa: "2段ケーキ", imageSrc: "/assets/cake/cake-two-tier.png" },
+  { id: "cut", labelKo: "잘린 홀케이크", labelEn: "Cut Cake", labelJa: "カットケーキ", imageSrc: "/assets/cake/cake-cut.png" },
 ];
+
+export function getCakeDesign(id?: string) {
+  return CAKE_DESIGNS.find((cake) => cake.id === id) ?? CAKE_DESIGNS[0];
+}
 
 export const BACKGROUND_COLOR_PRESETS = [
   { id: "peach", hex: "#F6DCC6" },
