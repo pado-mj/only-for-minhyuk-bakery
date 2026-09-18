@@ -4,7 +4,7 @@ import "./globals.css";
 
 export const metadata: Metadata = {
   title: "Only For Minhyuk Bakery",
-  description: "Let's fill his birthday table with cakes and wishes.",
+  description: "2026. 11. 03 HBD MH 💙",
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
