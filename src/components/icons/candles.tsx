@@ -26,7 +26,7 @@ const NUMBER_SOURCES: Record<number, { src: string; wickX: number; wickY: number
   9: { src: `${CANDLES_DIR}/number-9.png`, wickX: 0.574, wickY: 0.058 },
 };
 
-const HEART_SOURCE = { src: `${CANDLES_DIR}/heart-candle.png`, wickX: 0.7, wickY: 0.235 };
+const HEART_SOURCE = { src: `${CANDLES_DIR}/heart-candle-2.png`, wickX: 0.7, wickY: 0.235 };
 const DOG_SOURCE = { src: `${CANDLES_DIR}/dog-candle.png`, wickX: 0.646, wickY: 0.354 };
 
 function Flame({ wickX, wickY }: { wickX: number; wickY: number }) {
@@ -87,20 +87,7 @@ export function ClassicCandle({
 }
 
 export function HeartCandle({ lit = true, className }: { lit?: boolean; className?: string }) {
-  return (
-    <div className={`relative ${className ?? ""}`}>
-      <div
-        aria-hidden
-        className="absolute left-[47%] top-[36%] h-[58%] w-[13%] -translate-x-1/2 rounded-full"
-        style={{
-          background:
-            "repeating-linear-gradient(100deg, #EFA9B2 0 3px, #F7C3C8 3px 6px, #D98B98 6px 7px)",
-          opacity: 0.9,
-        }}
-      />
-      <ImageCandle {...HEART_SOURCE} lit={lit} className="absolute inset-0 h-full w-full" />
-    </div>
-  );
+  return <ImageCandle {...HEART_SOURCE} lit={lit} className={className} />;
 }
 
 export function DogCandle({ lit = true, className }: { lit?: boolean; className?: string }) {
