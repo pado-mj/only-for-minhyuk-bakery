@@ -1,14 +1,14 @@
 import { create } from "zustand";
 import { nanoid } from "nanoid";
 import type { CakeData, CanvasObject, ObjectLayer } from "@/types/cake";
-import { CAKE_COLOR_PRESETS, BACKGROUND_COLOR_PRESETS } from "@/lib/assets";
+import { BACKGROUND_COLOR_PRESETS, CAKE_DESIGNS } from "@/lib/assets";
 
 const HISTORY_LIMIT = 40;
 
 function emptyCakeData(): CakeData {
   return {
     background: { mode: "preset", color: BACKGROUND_COLOR_PRESETS[0].hex },
-    cakeColor: CAKE_COLOR_PRESETS[0].hex,
+    cakeDesign: CAKE_DESIGNS[0].id,
     objects: [],
   };
 }
@@ -17,6 +17,7 @@ function clone(data: CakeData): CakeData {
   return {
     background: { ...data.background },
     cakeColor: data.cakeColor,
+    cakeDesign: data.cakeDesign ?? "classic",
     objects: data.objects.map((o) => ({ ...o })),
   };
 }
@@ -30,7 +31,7 @@ interface EditorState {
   markSubmitted: () => void;
 
   setBackgroundColor: (hex: string, mode: "preset" | "custom") => void;
-  setCakeColor: (hex: string) => void;
+  setCakeDesign: (id: string) => void;
   addObject: (partial: Omit<CanvasObject, "id" | "zIndex">) => string;
   updateObjectTransform: (
     id: string,
@@ -70,12 +71,12 @@ export const useEditorStore = create<EditorState>((set, get) => ({
     });
   },
 
-  setCakeColor: (hex) => {
+  setCakeDesign: (id) => {
     const { present, past } = get();
     set({
       past: [...past, clone(present)].slice(-HISTORY_LIMIT),
       future: [],
-      present: { ...present, cakeColor: hex },
+      present: { ...present, cakeDesign: id },
     });
   },
 
