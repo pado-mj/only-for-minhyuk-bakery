@@ -107,12 +107,7 @@ function CompleteContent() {
         </div>
       </div>
 
-      <p className="mt-4 text-sm font-semibold text-ink">
-        {t.home.madeBy} {record.nickname}
-      </p>
-      <p className="mt-1 text-xs text-ink-soft">
-        {t.complete.cakeNumber} #{record.publicNumber}
-      </p>
+      <p className="mt-4 text-sm font-semibold text-ink">{record.nickname}</p>
 
       <div className="mt-6 flex w-full max-w-xs gap-2">
         <button
