@@ -34,7 +34,9 @@ function isValidCakeData(data: unknown): data is CakeData {
   const d = data as Record<string, unknown>;
   const bg = d.background as Record<string, unknown> | undefined;
   if (!bg || typeof bg.color !== "string" || !/^#[0-9a-fA-F]{6}$/.test(bg.color)) return false;
-  if (typeof d.cakeColor !== "string" || !/^#[0-9a-fA-F]{6}$/.test(d.cakeColor)) return false;
+  // cakeColor is a legacy field. New cake designs use authored artwork without runtime tinting.
+  if (d.cakeColor !== undefined && (typeof d.cakeColor !== "string" || !/^#[0-9a-fA-F]{6}$/.test(d.cakeColor))) return false;
+  if (d.cakeDesign !== undefined && typeof d.cakeDesign !== "string") return false;
   if (!Array.isArray(d.objects) || d.objects.length > MAX_OBJECTS) return false;
   return d.objects.every(isValidObject);
 }
