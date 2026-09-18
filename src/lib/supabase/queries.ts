@@ -1,4 +1,4 @@
-import { createSupabaseClient } from "@/lib/supabase/client";
+import { createSupabaseAdminClient } from "@/lib/supabase/admin";
 import type { CakeRecord } from "@/types/cake";
 
 interface CakeRow {
@@ -34,12 +34,8 @@ function mapRow(row: CakeRow): CakeRecord {
   };
 }
 
-// Fetches everything published, newest first. Fine at the current scale —
-// once the table is large enough to matter, this should become a real
-// paginated/sorted query per discovery mode instead of client-side
-// sort+slice over the full set.
 export async function fetchPublishedCakes(limit = 500): Promise<CakeRecord[]> {
-  const supabase = createSupabaseClient();
+  const supabase = createSupabaseAdminClient();
   const { data, error } = await supabase
     .from("cakes")
     .select(SELECT_COLUMNS)
@@ -55,7 +51,7 @@ export async function fetchPublishedCakes(limit = 500): Promise<CakeRecord[]> {
 }
 
 export async function fetchCakeByPublicId(publicId: string): Promise<CakeRecord | null> {
-  const supabase = createSupabaseClient();
+  const supabase = createSupabaseAdminClient();
   const { data, error } = await supabase
     .from("cakes")
     .select(SELECT_COLUMNS)
