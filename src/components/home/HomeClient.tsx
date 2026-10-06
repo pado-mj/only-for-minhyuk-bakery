@@ -74,8 +74,10 @@ export function HomeClient({ cakes, stats }: { cakes: CakeRecord[]; stats: { tot
 
   return (
     <div>
-      <header className="paper-texture px-5 pb-6 pt-5 text-center">
-        <div className="mb-1 flex justify-end"><LocaleSwitcher /></div>
+      <header className="paper-texture px-5 pb-6 pt-14 text-center">
+        <div className="fixed left-1/2 top-0 z-40 flex w-full max-w-[480px] -translate-x-1/2 justify-end border-b border-ink/10 bg-cream/90 px-5 py-2.5 backdrop-blur">
+          <LocaleSwitcher />
+        </div>
         <BakeryAwning brand={t.common.brand} />
         <div className="relative z-10 mx-auto -mt-[36px] w-full max-w-[400px] rounded-b-[3px] border-x-[3px] border-b-[3px] border-[#7d6449] bg-[#fffaf0] px-5 pb-5 pt-16">
           <p className="mx-auto max-w-[280px] text-sm text-ink-soft">{t.common.tagline}</p>
@@ -110,17 +112,18 @@ export function HomeClient({ cakes, stats }: { cakes: CakeRecord[]; stats: { tot
       </div>
       <BirthdayTable key={`${mode}-${focusId ?? ""}`} cakes={cakes} mode={mode} focusId={focusId} />
       {notices.length > 0 && (
-        <section className="px-5 pb-10 pt-5" aria-label="Notice">
-          <div className="mx-auto max-w-[400px] border-y border-[#8b7357]/35 py-4 text-left">
-            <p className="text-[11px] font-bold tracking-[0.18em] text-navy">NOTICE</p>
-            {notices.map((notice) => (
-              <div key={notice.id} className="mt-2">
-                <p className="text-sm font-bold text-ink">{notice.title}</p>
-                {notice.body !== notice.title && <p className="mt-1 text-xs leading-5 text-ink-soft">{notice.body}</p>}
+        <>
+          <div className="h-16" aria-hidden="true" />
+          <section className="fixed bottom-0 left-1/2 z-40 w-full max-w-[480px] -translate-x-1/2 border-t border-[#8b7357]/35 bg-[#fffaf0]/95 px-5 py-3 text-left shadow-[0_-4px_16px_rgba(58,46,34,0.08)] backdrop-blur" aria-label="Notice">
+            <div className="mx-auto flex max-w-[400px] items-center gap-3">
+              <p className="shrink-0 text-[10px] font-bold tracking-[0.16em] text-navy">NOTICE</p>
+              <div className="min-w-0 flex-1">
+                <p className="truncate text-xs font-bold text-ink">{notices[0].title}</p>
+                {notices[0].body !== notices[0].title && <p className="truncate text-[11px] text-ink-soft">{notices[0].body}</p>}
               </div>
-            ))}
-          </div>
-        </section>
+            </div>
+          </section>
+        </>
       )}
     </div>
   );
