@@ -68,7 +68,7 @@ export function HomeClient({ cakes, stats }: { cakes: CakeRecord[]; stats: { tot
       <header className="paper-texture px-5 pb-6 pt-5 text-center">
         <div className="mb-1 flex justify-end"><LocaleSwitcher /></div>
         <BakeryAwning brand={t.common.brand} />
-        <div className="mx-auto -mt-[3px] w-full max-w-[400px] rounded-b-[3px] border-x-[3px] border-b-[3px] border-[#7d6449] bg-[#fffaf0] px-5 pb-5 pt-7">
+        <div className="relative z-0 mx-auto -mt-[22px] w-full max-w-[400px] rounded-b-[3px] border-x-[3px] border-b-[3px] border-[#7d6449] bg-[#fffaf0] px-5 pb-5 pt-12">
           <p className="mx-auto max-w-[280px] text-sm text-ink-soft">{t.common.tagline}</p>
           <p className="mx-auto mt-2 max-w-[300px] text-[11px] font-semibold text-navy/75">{t.home.scrollHint}</p>
           <div className="mt-5 flex items-center justify-center gap-4 text-xs font-semibold text-navy">
@@ -78,12 +78,12 @@ export function HomeClient({ cakes, stats }: { cakes: CakeRecord[]; stats: { tot
           </div>
         </div>
         <div className="mt-9 flex flex-col items-center">
-          <Link href="/create" className="tape-cta inline-flex w-full max-w-[280px] items-center justify-center px-6 py-4 text-sm font-bold text-navy transition-transform active:translate-y-[2px]">
+          <Link href="/create" className="tape-cta inline-flex w-full max-w-[280px] items-center justify-center px-6 py-4 text-base font-bold text-navy transition-transform active:translate-y-[2px]">
             {t.home.makeCake}
           </Link>
-          <a href="#feature-request" className="mt-3 inline-block text-[12px] font-semibold text-ink-soft underline decoration-ink-soft/40 underline-offset-4">
+          <button type="button" onClick={() => { setFeatureState("idle"); setFeatureOpen(true); }} className="mt-3 inline-block text-[14px] font-semibold text-ink-soft underline decoration-ink-soft/40 underline-offset-4">
             {t.home.requestFeature}
-          </a>
+          </button>
         </div>
         {featureOpen && <div className="fixed inset-0 z-50 flex items-center justify-center bg-ink/25 px-6" onClick={() => setFeatureOpen(false)}><div className="paper-card w-full max-w-[360px] p-5 text-left" onClick={(e) => e.stopPropagation()}><p className="text-sm font-bold text-ink">{t.home.featureRequestTitle}</p><input value={featureText} onChange={(e) => setFeatureText(e.target.value.slice(0, 120))} placeholder={t.home.featureRequestPlaceholder} className="mt-4 w-full rounded-md border border-ink/20 bg-[#fffaf0] px-3 py-3 text-sm outline-none" /><button type="button" onClick={submitFeatureRequest} disabled={!featureText.trim() || featureState === "saving"} className="tape-cta mt-4 flex w-full items-center justify-center py-3 text-sm font-bold text-navy disabled:opacity-50">{t.home.featureRequestSubmit}</button>{featureState === "success" && <p className="mt-3 text-center text-xs text-navy">{t.home.featureRequestSuccess}</p>}{featureState === "error" && <p className="mt-3 text-center text-xs text-red-700">{t.home.featureRequestError}</p>}</div></div>}
       </header>
