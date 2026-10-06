@@ -40,6 +40,7 @@ interface EditorState {
   commit: () => void;
   removeObject: (id: string) => void;
   duplicateObject: (id: string) => void;
+  flipObject: (id: string) => void;
   reorderLayer: (id: string, direction: "forward" | "backward") => void;
   selectObject: (id: string | null) => void;
   undo: () => void;
@@ -136,6 +137,20 @@ export const useEditorStore = create<EditorState>((set, get) => ({
       future: [],
       present: { ...present, objects: [...present.objects, copy] },
       selectedId: copy.id,
+    });
+  },
+
+  flipObject: (id) => {
+    const { present, past } = get();
+    const source = present.objects.find((o) => o.id === id);
+    if (!source) return;
+    set({
+      past: [...past, clone(present)].slice(-HISTORY_LIMIT),
+      future: [],
+      present: {
+        ...present,
+        objects: present.objects.map((o) => o.id === id ? { ...o, scale: -o.scale } : o),
+      },
     });
   },
 
