@@ -87,7 +87,7 @@ export const dictionaries = {
       charCount: "자",
       publicNotice:
         "작성한 케이크, 닉네임, 편지는 생일상에 공개적으로 노출돼요.",
-      goToReview: "확인하러 가기",
+      goToReview: "생일상에 올리기로",
     },
     review: {
       title: "마지막으로 확인해 주세요",
@@ -207,7 +207,7 @@ export const dictionaries = {
       charCount: "chars",
       publicNotice:
         "Your cake, nickname, and letter will be publicly visible on the Birthday Table.",
-      goToReview: "Review",
+      goToReview: "Post to Birthday Table",
     },
     review: {
       title: "Take one last look",
@@ -325,7 +325,7 @@ export const dictionaries = {
       charCount: "文字",
       publicNotice:
         "作成したケーキ、ニックネーム、手紙は誕生日テーブルに公開されます。",
-      goToReview: "確認する",
+      goToReview: "誕生日テーブルに載せる",
     },
     review: {
       title: "最後にもう一度確認してください",
