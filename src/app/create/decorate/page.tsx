@@ -99,7 +99,7 @@ export default function DecoratePage() {
 
       <button
         onClick={() => router.push("/create/candles")}
-        className="mt-5 w-full rounded-full bg-berry py-3.5 text-sm font-bold text-cream shadow-lg transition-transform active:scale-[0.98]"
+        className="tape-cta mt-5 w-full py-3.5 text-sm font-bold text-navy transition-transform active:translate-y-[2px]"
       >
         {t.editor.goToCandles}
       </button>
