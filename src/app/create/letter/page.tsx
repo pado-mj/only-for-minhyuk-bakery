@@ -16,7 +16,7 @@ export default function LetterPage() {
   const { t, locale } = useI18n();
   const router = useRouter();
   const present = useEditorStore((s) => s.present);
-  const { nickname, country, letter, setNickname, setCountry, setLetter } = useSubmissionStore();
+  const { nickname, country, letter, hideLetterOnTable, setNickname, setCountry, setLetter, setHideLetterOnTable } = useSubmissionStore();
   const [touched, setTouched] = useState(false);
 
   const valid = nickname.trim().length > 0 && letter.trim().length > 0;
@@ -84,9 +84,22 @@ export default function LetterPage() {
       </p>
 
       <button
+        type="button"
+        onClick={() => setHideLetterOnTable(!hideLetterOnTable)}
+        aria-pressed={hideLetterOnTable}
+        className="mt-3 flex w-full items-center gap-3 rounded-lg border border-ink/15 bg-[#fffaf0] px-4 py-3 text-left"
+      >
+        <span className={`flex h-5 w-5 shrink-0 items-center justify-center border border-ink/30 text-xs ${hideLetterOnTable ? "bg-navy text-cream" : "bg-white text-transparent"}`}>✓</span>
+        <span>
+          <span className="block text-xs font-bold text-ink">{t.review.hideLetter}</span>
+          <span className="mt-0.5 block text-[10px] leading-4 text-ink-soft">{t.review.hideLetterHint}</span>
+        </span>
+      </button>
+
+      <button
         disabled={!valid}
         onClick={() => router.push("/create/review")}
-        className="mt-5 w-full rounded-full bg-berry py-3.5 text-sm font-bold text-cream shadow-lg transition-transform active:scale-[0.98] disabled:opacity-40"
+        className="tape-cta mt-5 w-full py-3.5 text-sm font-bold text-navy transition-transform active:translate-y-[2px] disabled:opacity-40"
       >
         {t.letter.goToReview}
       </button>
