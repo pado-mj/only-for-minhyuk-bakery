@@ -108,7 +108,7 @@ export default function DecoratePage() {
               presets={BACKGROUND_COLOR_PRESETS}
               value={present.background.color}
               onChange={(hex) => setBackgroundColor(hex, "preset")}
-              showCustom={(present.background.texture ?? "paper") === "paper"}
+              showCustom={(present.background.texture ?? "paper") !== "kraft"}
             />
           )}
           </>
