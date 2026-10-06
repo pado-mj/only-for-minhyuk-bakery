@@ -81,8 +81,11 @@ body {
   margin: 0 auto;
   min-height: 100dvh;
   background-color: var(--color-cream);
-  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='p'><feTurbulence type='fractalNoise' baseFrequency='.72' numOctaves='3' stitchTiles='stitch'/><feColorMatrix type='matrix' values='0 0 0 0 .43 0 0 0 0 .34 0 0 0 0 .24 0 0 0 .095 0'/></filter><rect width='100%25' height='100%25' filter='url(%23p)'/></svg>");
-  background-size: auto, 130px 130px;
+  background-image:
+    radial-gradient(circle at 18% 12%, rgba(255,255,255,.38) 0 1px, transparent 1.6px),
+    radial-gradient(circle at 72% 64%, rgba(126,99,60,.08) 0 1px, transparent 1.7px),
+    url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='96' height='96'><filter id='p'><feTurbulence type='fractalNoise' baseFrequency='.34' numOctaves='5' seed='17' stitchTiles='stitch'/><feColorMatrix type='matrix' values='0 0 0 0 .42 0 0 0 0 .32 0 0 0 0 .20 0 0 0 .18 0'/></filter><rect width='100%25' height='100%25' filter='url(%23p)'/></svg>");
+  background-size: 24px 24px, 31px 31px, 96px 96px;
   position: relative;
   box-shadow: 0 0 60px rgba(58, 46, 34, 0.08);
 }
