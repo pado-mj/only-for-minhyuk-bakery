@@ -96,18 +96,21 @@ export default function DecoratePage() {
           <div className="mb-4">
             <p className="mb-2 text-xs font-semibold text-ink-soft">{t.editor.backgroundTexture}</p>
             <div className="grid grid-cols-4 gap-2">
-              {(["paper","check","cream","kraft"] as const).map((texture) => (
+              {(["paper","check","kraft"] as const).map((texture) => (
                 <button key={texture} onClick={() => setBackgroundTexture(texture)} className={`rounded-lg border px-2 py-2 text-[11px] font-semibold ${(present.background.texture ?? "paper") === texture ? "border-berry text-berry" : "border-ink/15 text-ink-soft"}`}>
-                  {t.editor[texture === "paper" ? "texturePaper" : texture === "check" ? "textureCheck" : texture === "cream" ? "textureCream" : "textureKraft"]}
+                  {t.editor[texture === "paper" ? "texturePaper" : texture === "check" ? "textureCheck" : "textureKraft"]}
                 </button>
               ))}
             </div>
           </div>
-          <ColorPicker
-            presets={BACKGROUND_COLOR_PRESETS}
-            value={present.background.color}
-            onChange={(hex) => setBackgroundColor(hex, "custom")}
-          />
+          {(present.background.texture ?? "paper") !== "kraft" && (
+            <ColorPicker
+              presets={BACKGROUND_COLOR_PRESETS}
+              value={present.background.color}
+              onChange={(hex) => setBackgroundColor(hex, "preset")}
+              showCustom={false}
+            />
+          )}
           </>
         )}
         {tab === "cake" && <CakePicker />}
