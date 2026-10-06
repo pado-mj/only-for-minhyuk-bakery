@@ -6,7 +6,7 @@ import { useI18n } from "@/lib/i18n/context";
 import type { CakeRecord } from "@/types/cake";
 
 export function CakeTableItem({ cake }: { cake: CakeRecord }) {
-  const { locale } = useI18n();
+  const { locale, t } = useI18n();
   return (
     <Link
       href={`/cake/${cake.publicId}`}
@@ -24,9 +24,16 @@ export function CakeTableItem({ cake }: { cake: CakeRecord }) {
             </span>
           )}
         </div>
-        <p className="mt-1.5 line-clamp-2 min-h-[2.5rem] text-[11px] leading-5 text-ink-soft">
-          {cake.letter}
-        </p>
+        {cake.cakeData.hideLetterOnTable ? (
+          <div className="mt-1.5 flex min-h-[2.5rem] items-center rounded-sm bg-paper/70 px-2 text-[10px] font-semibold tracking-wide text-ink-soft">
+            <span aria-hidden="true" className="mr-1.5 select-none blur-[3px]">••••••••</span>
+            {t.home.hiddenLetter}
+          </div>
+        ) : (
+          <p className="mt-1.5 line-clamp-2 min-h-[2.5rem] text-[11px] leading-5 text-ink-soft">
+            {cake.letter}
+          </p>
+        )}
       </div>
     </Link>
   );
