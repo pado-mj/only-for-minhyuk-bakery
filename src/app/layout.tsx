@@ -3,22 +3,22 @@ import { I18nProvider } from "@/lib/i18n/context";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "Only For Minhyuk Bakery",
-  description: "2026. 11. 03 HBD MH 💙",
+  title: "· ｡ ✧ 민혁이의 생일상 🎂 ✧ ｡ ·· ｡",
+  description: "· ｡ ✧ 민혁이의 생일상을 함께 채워주세요 ♡ ✧ ｡ · · ｡ ✧ ᴏɴʟɪɴᴇ ʙɪʀᴛʜᴅᴀʏ ᴄᴀꜰᴇ ꜰᴏʀ ᴍɪɴʜʏᴜᴋ✧ ｡ ·",
   icons: {
     icon: "/assets/fabicon.png",
     shortcut: "/assets/fabicon.png",
     apple: "/assets/fabicon.png",
   },
   openGraph: {
-    title: "Only For Minhyuk Bakery",
-    description: "2026. 11. 03 HBD MH 💙",
-    images: [{ url: "/assets/og-image.png", width: 1536, height: 768, alt: "Only For Minhyuk Bakery" }],
+    title: "· ｡ ✧ 민혁이의 생일상 🎂 ✧ ｡ ·· ｡",
+    description: "· ｡ ✧ 민혁이의 생일상을 함께 채워주세요 ♡ ✧ ｡ · · ｡ ✧ ᴏɴʟɪɴᴇ ʙɪʀᴛʜᴅᴀʏ ᴄᴀꜰᴇ ꜰᴏʀ ᴍɪɴʜʏᴜᴋ✧ ｡ ·",
+    images: [{ url: "/assets/og-image.png", width: 1536, height: 768, alt: "· ｡ ✧ 민혁이의 생일상 🎂 ✧ ｡ ·· ｡" }],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Only For Minhyuk Bakery",
-    description: "2026. 11. 03 HBD MH 💙",
+    title: "· ｡ ✧ 민혁이의 생일상 🎂 ✧ ｡ ·· ｡",
+    description: "· ｡ ✧ 민혁이의 생일상을 함께 채워주세요 ♡ ✧ ｡ · · ｡ ✧ ᴏɴʟɪɴᴇ ʙɪʀᴛʜᴅᴀʏ ᴄᴀꜰᴇ ꜰᴏʀ ᴍɪɴʜʏᴜᴋ✧ ｡ ·",
     images: ["/assets/og-image.png"],
   },
 };
