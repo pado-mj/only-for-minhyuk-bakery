@@ -11,7 +11,11 @@ export async function POST(request: Request) {
   if (!text || text.length > 120) return NextResponse.json({ error: "Request must be 1-120 characters" }, { status: 400 });
   if (!process.env.SUPABASE_URL || !process.env.SUPABASE_SERVICE_ROLE_KEY) return NextResponse.json({ error: "Database unavailable" }, { status: 503 });
   const supabase = createSupabaseAdminClient();
-  const { error } = await supabase.from("feature_requests").insert({ request_text: text });
+  let { error } = await supabase.from("feature_requests").insert({ request_text: text, type });
+  // Keep production usable until the type migration has been applied.
+  if (error && /type/i.test(error.message)) {
+    ({ error } = await supabase.from("feature_requests").insert({ request_text: text }));
+  }
   if (error) { console.error("feature request insert failed:", error); return NextResponse.json({ error: "Failed to save request" }, { status: 500 }); }
   return NextResponse.json({ ok: true }, { status: 201 });
 }
