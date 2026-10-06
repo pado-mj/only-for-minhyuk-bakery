@@ -42,6 +42,8 @@ export function CanvasObjectSprite({
 
   if (object.type === "topper") {
     const isDark = object.textStyle === "dark";
+    const topperLength = Array.from(object.text ?? "").length;
+    const topperFontSize = topperLength >= 9 ? 8 : topperLength >= 7 ? 9.5 : topperLength >= 5 ? 11 : 13;
     return (
       <div className="relative w-full" style={{ containerType: "inline-size" }}>
         <svg
@@ -58,8 +60,8 @@ export function CanvasObjectSprite({
           />
         </svg>
         <div
-          className={`relative text-center font-bold leading-tight ${isDark ? "text-cream" : "text-ink"}`}
-          style={{ fontSize: "13cqw", padding: "0.7em 1em" }}
+          className={`relative whitespace-nowrap text-center font-bold leading-none ${isDark ? "text-cream" : "text-ink"}`}
+          style={{ fontSize: `${topperFontSize}cqw`, padding: "1.35em 0.75em" }}
         >
           {object.text}
         </div>
