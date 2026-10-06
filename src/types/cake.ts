@@ -26,11 +26,15 @@ export interface CanvasObject {
   text?: string;
   textStyle?: "light" | "dark";
   imageDataUrl?: string;
+  flipX?: boolean;
 }
+
+export type BackgroundTexture = "paper" | "check" | "cream" | "kraft";
 
 export interface CakeBackground {
   mode: "preset" | "custom";
   color: string;
+  texture?: BackgroundTexture;
 }
 
 export interface CakeData {
