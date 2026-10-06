@@ -199,3 +199,11 @@ a.bg-navy {
 }
 .cake-scrap:nth-child(even) { transform: rotate(.35deg); }
 .cake-scrap:nth-child(odd) { transform: rotate(-.3deg); }
+
+/* Create flow: visible warm paper grain without using handwritten type. */
+.create-paper {
+  background-color: #fbf3e3;
+  background-image:
+    linear-gradient(rgba(255,250,238,.22), rgba(255,250,238,.22)),
+    url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='110' height='110'><filter id='paper'><feTurbulence type='fractalNoise' baseFrequency='.48' numOctaves='4' seed='11'/><feColorMatrix type='matrix' values='0 0 0 0 .48 0 0 0 0 .38 0 0 0 0 .25 0 0 0 .085 0'/></filter><rect width='100%25' height='100%25' filter='url(%23paper)'/></svg>");
+}
