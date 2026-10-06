@@ -1,6 +1,7 @@
 import { CakeBase } from "@/components/icons/cake";
 import { CanvasObjectSprite } from "@/components/cake/CanvasObjectSprite";
 import { backgroundGradient } from "@/lib/color";
+import type { CSSProperties } from "react";
 import { CANVAS_SIZE } from "@/types/cake";
 import type { CakeData } from "@/types/cake";
 
@@ -28,12 +29,20 @@ export function CakeCanvas({
   // Normalize at render time so existing published cakes remain readable.
   const backgroundColor = cakeData?.background?.color ?? "#F6DCC6";
   const cakeDesign = cakeData?.cakeDesign ?? "classic";
+  const texture = cakeData?.background?.texture ?? "paper";
+  const textureStyle: CSSProperties = texture === "check"
+    ? { backgroundImage: `linear-gradient(rgba(52,71,86,.16) 1px, transparent 1px), linear-gradient(90deg, rgba(52,71,86,.16) 1px, transparent 1px), ${backgroundGradient(backgroundColor)}`, backgroundSize: "9% 9%, 9% 9%, 100% 100%" }
+    : texture === "cream"
+      ? { background: `repeating-radial-gradient(ellipse at 18% 12%, rgba(255,255,255,.72) 0 3%, rgba(244,220,167,.34) 6%, rgba(255,255,255,.5) 10%, transparent 15%), ${backgroundGradient(backgroundColor)}` }
+      : texture === "kraft"
+        ? { backgroundColor: "#cda16d", backgroundImage: "radial-gradient(rgba(92,58,31,.12) .8px, transparent .9px), radial-gradient(rgba(255,245,220,.16) .7px, transparent .8px)", backgroundSize: "7px 7px, 11px 11px", backgroundPosition: "0 0, 3px 5px" }
+        : { background: backgroundGradient(backgroundColor) };
   const objects = Array.isArray(cakeData?.objects) ? cakeData.objects : [];
   const sorted = [...objects].sort((a, b) => a.layer - b.layer || a.zIndex - b.zIndex);
   return (
     <div
       className={`paper-texture relative aspect-square w-full overflow-hidden ${rounded ? "rounded-2xl" : ""} ${className}`}
-      style={{ background: backgroundGradient(backgroundColor), containerType: "inline-size" }}
+      style={{ ...textureStyle, containerType: "inline-size" }}
     >
       <div className="absolute left-1/2 top-[58%] w-[72%] -translate-x-1/2 -translate-y-1/2">
         <CakeBase designId={cakeDesign} className="w-full" />
@@ -53,7 +62,7 @@ export function CakeCanvas({
               containerType: "inline-size",
             }}
           >
-            <CanvasObjectSprite object={object} lit={candlesLit} />
+            <div style={{ transform: object.flipX ? "scaleX(-1)" : undefined }}><CanvasObjectSprite object={object} lit={candlesLit} /></div>
           </div>
         );
       })}
