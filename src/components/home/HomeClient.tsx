@@ -57,7 +57,7 @@ export function HomeClient({ cakes, stats }: { cakes: CakeRecord[]; stats: { tot
           <span className="text-ink-soft">+{stats.today} {t.home.today}</span>
           <span className="text-ink-soft">{stats.countries} {t.home.countries}</span>
         </div>
-        <Link href="/create" className="mt-5 inline-block w-full max-w-[260px] rounded-full bg-navy px-6 py-3 text-sm font-bold text-cream shadow-lg transition-transform active:scale-[0.97]">
+        <Link href="/create" className="handmade-button mt-5 inline-block w-full max-w-[260px] bg-navy px-6 py-3 text-sm font-bold text-cream transition-transform active:translate-y-[2px]">
           {t.home.makeCake}
         </Link>
       </header>
@@ -65,11 +65,11 @@ export function HomeClient({ cakes, stats }: { cakes: CakeRecord[]; stats: { tot
       <div className="sticky top-0 z-10 flex items-center justify-center gap-2 border-y border-ink/10 bg-cream/90 px-4 py-2.5 backdrop-blur">
         {(["new", "mostViewed"] as SortMode[]).map((m) => (
           <button key={m} onClick={() => { setMode(m); setFocusId(undefined); }}
-            className={`rounded-full px-3 py-1.5 text-[11px] font-bold tracking-wide transition-colors ${mode === m ? "bg-navy text-cream" : "bg-paper text-ink-soft"}`}>
+            className={`handmade-tab px-3 py-1.5 text-[11px] font-bold tracking-wide transition-colors ${mode === m ? "bg-navy text-cream" : "bg-[#fffaf0] text-ink-soft"}`}>
             {m === "new" ? t.home.new : t.home.mostViewed}
           </button>
         ))}
-        <button onClick={handleRandom} className="rounded-full bg-paper px-3 py-1.5 text-[11px] font-bold tracking-wide text-ink-soft transition-colors active:bg-navy active:text-cream">
+        <button onClick={handleRandom} className="handmade-tab bg-[#fffaf0] px-3 py-1.5 text-[11px] font-bold tracking-wide text-ink-soft transition-colors active:bg-navy active:text-cream">
           {t.home.random}
         </button>
       </div>
