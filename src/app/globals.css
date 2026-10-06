@@ -156,7 +156,8 @@ a.bg-navy {
   background: #f3df9f;
   border: .5px solid rgba(112, 82, 48, .48);
   border-radius: 2px;
-  box-shadow: 4px 3px 0 rgba(92,72,45,.13);
+  box-shadow: none;
+  filter: drop-shadow(4px 3px 0 rgba(92,72,45,.18));
   transform: rotate(-.35deg);
 }
 .tape-cta::before,
@@ -168,6 +169,7 @@ a.bg-navy {
   bottom: 4px;
   width: 18px;
   background: #f3df9f;
+  border: .5px solid rgba(112, 82, 48, .48);
 }
 .tape-cta::before {
   left: -9px;
