@@ -157,7 +157,7 @@ export const dictionaries = {
   en: {
     common: {
       brand: "ONLY FOR MINHYUK BAKERY",
-      tagline: "Let's fill his birthday table with cakes and wishes.",
+      tagline: "Let’s fill Minhyuk’s birthday spread together.",
       next: "Next",
       back: "Back",
       edit: "Edit",
