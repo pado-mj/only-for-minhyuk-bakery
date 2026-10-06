@@ -78,7 +78,7 @@ export default function ReviewPage() {
         <p className="mt-3 text-center text-xs font-semibold text-berry">{error}</p>
       )}
 
-      <div className="mt-5 flex gap-2">
+      <div className="mt-5 flex gap-4">
         <button
           onClick={() => router.push("/create/letter")}
           disabled={submitting}
