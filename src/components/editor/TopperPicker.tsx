@@ -34,7 +34,7 @@ export function TopperPicker() {
           <button
             key={text}
             onClick={() => addTopper(text, "light")}
-            className="rounded-full border border-ink/15 bg-cream px-3 py-1.5 text-xs font-bold text-ink transition-transform active:scale-95"
+            className="whitespace-nowrap rounded-full border border-ink/15 bg-cream px-3 py-1.5 text-[11px] font-bold text-ink transition-transform active:scale-95"
           >
             {text}
           </button>
