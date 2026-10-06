@@ -7,7 +7,7 @@ const HISTORY_LIMIT = 40;
 
 function emptyCakeData(): CakeData {
   return {
-    background: { mode: "preset", color: BACKGROUND_COLOR_PRESETS[0].hex },
+    background: { mode: "preset", color: BACKGROUND_COLOR_PRESETS[0].hex, texture: "paper" },
     cakeDesign: CAKE_DESIGNS[0].id,
     objects: [],
   };
@@ -31,6 +31,7 @@ interface EditorState {
   markSubmitted: () => void;
 
   setBackgroundColor: (hex: string, mode: "preset" | "custom") => void;
+  setBackgroundTexture: (texture: "paper" | "check" | "cream" | "kraft") => void;
   setCakeDesign: (id: string) => void;
   addObject: (partial: Omit<CanvasObject, "id" | "zIndex">) => string;
   updateObjectTransform: (
@@ -69,6 +70,15 @@ export const useEditorStore = create<EditorState>((set, get) => ({
       past: [...past, clone(present)].slice(-HISTORY_LIMIT),
       future: [],
       present: { ...present, background: { mode, color: hex } },
+    });
+  },
+
+  setBackgroundTexture: (texture) => {
+    const { present, past } = get();
+    set({
+      past: [...past, clone(present)].slice(-HISTORY_LIMIT),
+      future: [],
+      present: { ...present, background: { ...present.background, texture } },
     });
   },
 
@@ -149,7 +159,7 @@ export const useEditorStore = create<EditorState>((set, get) => ({
       future: [],
       present: {
         ...present,
-        objects: present.objects.map((o) => o.id === id ? { ...o, scale: -o.scale } : o),
+        objects: present.objects.map((o) => o.id === id ? { ...o, flipX: !o.flipX } : o),
       },
     });
   },
