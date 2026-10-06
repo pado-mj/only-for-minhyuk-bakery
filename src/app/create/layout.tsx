@@ -12,9 +12,9 @@ export default function CreateLayout({ children }: { children: React.ReactNode }
   const showChrome = currentStep !== "complete";
 
   return (
-    <div className="min-h-dvh pb-6">
+    <div className="create-paper min-h-dvh pb-6">
       {showChrome && (
-        <div className="sticky top-0 z-20 bg-cream/95 px-4 pb-2 pt-4 backdrop-blur">
+        <div className="sticky top-0 z-20 bg-cream/80 px-4 pb-2 pt-4 backdrop-blur-[2px]">
           <div className="mb-2 flex items-center">
             <button
               onClick={() => router.back()}
