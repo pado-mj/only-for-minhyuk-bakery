@@ -31,6 +31,21 @@ function CompleteContent() {
     setFetched(null);
   }, [publicId, lastCreated]);
 
+  useEffect(() => {
+    if (!record || !exportRef.current) return;
+    let cancelled = false;
+    const timer = window.setTimeout(async () => {
+      try {
+        const dataUrl = await renderExportImage();
+        if (!cancelled && dataUrl) setExportImage(dataUrl);
+      } catch (err) {
+        console.error("preview image failed:", err);
+      }
+    }, 350);
+    return () => { cancelled = true; window.clearTimeout(timer); };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [record?.publicId]);
+
   if (!record) {
     return (
       <div className="flex min-h-dvh flex-col items-center justify-center px-6 text-center">
@@ -59,21 +74,6 @@ function CompleteContent() {
     const { toPng } = await import("html-to-image");
     return toPng(exportRef.current, { width: 1080, height: 1080, pixelRatio: 1, skipFonts: true, cacheBust: true });
   };
-
-  useEffect(() => {
-    if (!record || !exportRef.current) return;
-    let cancelled = false;
-    const timer = window.setTimeout(async () => {
-      try {
-        const dataUrl = await renderExportImage();
-        if (!cancelled && dataUrl) setExportImage(dataUrl);
-      } catch (err) {
-        console.error("preview image failed:", err);
-      }
-    }, 350);
-    return () => { cancelled = true; window.clearTimeout(timer); };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [record?.publicId]);
 
   const handleSaveImage = async () => {
     if (!exportRef.current || saving) return;
