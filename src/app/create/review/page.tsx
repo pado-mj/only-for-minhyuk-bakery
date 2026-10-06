@@ -18,6 +18,7 @@ export default function ReviewPage() {
   const setLastCreated = useLastCreatedStore((s) => s.setRecord);
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [hideLetterOnTable, setHideLetterOnTable] = useState(false);
 
   const handleComplete = async () => {
     setSubmitting(true);
@@ -30,7 +31,7 @@ export default function ReviewPage() {
           nickname: nickname.trim(),
           country,
           letter: letter.trim(),
-          cakeData: present,
+          cakeData: { ...present, hideLetterOnTable },
         }),
       });
       if (!res.ok) throw new Error(await res.text());
@@ -45,7 +46,7 @@ export default function ReviewPage() {
         nickname: nickname.trim(),
         country,
         letter: letter.trim(),
-        cakeData: present,
+        cakeData: { ...present, hideLetterOnTable },
         viewCount: 0,
         createdAt: new Date().toISOString(),
         status: "published",
@@ -69,6 +70,19 @@ export default function ReviewPage() {
       <div className="mt-4">
         <LetterCard nickname={nickname} country={country} letter={letter} locale={locale} />
       </div>
+
+      <button
+        type="button"
+        onClick={() => setHideLetterOnTable((v) => !v)}
+        aria-pressed={hideLetterOnTable}
+        className="mt-4 flex w-full items-center gap-3 rounded-lg border border-ink/15 bg-[#fffaf0] px-4 py-3 text-left"
+      >
+        <span className={`flex h-5 w-5 shrink-0 items-center justify-center border border-ink/30 text-xs ${hideLetterOnTable ? "bg-navy text-cream" : "bg-white text-transparent"}`}>✓</span>
+        <span>
+          <span className="block text-xs font-bold text-ink">{t.review.hideLetter}</span>
+          <span className="mt-0.5 block text-[10px] leading-4 text-ink-soft">{t.review.hideLetterHint}</span>
+        </span>
+      </button>
 
       <p className="mt-4 rounded-xl bg-berry/10 px-3 py-3 text-center text-xs font-semibold leading-relaxed text-berry">
         {t.review.warning}
