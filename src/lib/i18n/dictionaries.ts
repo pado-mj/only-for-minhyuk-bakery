@@ -70,6 +70,7 @@ export const dictionaries = {
       resetConfirmTitle: "케이크를 초기화할까요?",
       resetConfirmBody: "지금까지 꾸민 내용이 모두 사라져요.",
       duplicate: "복제",
+      flip: "반전",
       delete: "삭제",
       bringForward: "앞으로",
       sendBackward: "뒤로",
@@ -101,7 +102,7 @@ export const dictionaries = {
       charCount: "자",
       publicNotice:
         "작성한 케이크, 닉네임, 편지는 생일상에 공개적으로 노출돼요.",
-      goToReview: "생일상에 올리기로",
+      goToReview: "생일상에 올리기",
     },
     review: {
       title: "마지막으로 확인해 주세요",
@@ -204,6 +205,7 @@ export const dictionaries = {
       resetConfirmTitle: "Reset this cake?",
       resetConfirmBody: "Everything you've decorated so far will be lost.",
       duplicate: "Duplicate",
+      flip: "Flip",
       delete: "Delete",
       bringForward: "Forward",
       sendBackward: "Backward",
@@ -338,6 +340,7 @@ export const dictionaries = {
       resetConfirmTitle: "ケーキをリセットしますか?",
       resetConfirmBody: "これまでデコレーションした内容が消えます。",
       duplicate: "複製",
+      flip: "反転",
       delete: "削除",
       bringForward: "前面へ",
       sendBackward: "背面へ",
