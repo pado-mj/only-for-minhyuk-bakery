@@ -154,7 +154,7 @@ a.bg-navy {
   position: relative;
   isolation: isolate;
   background: #f3df9f;
-  border: .5px solid rgba(112, 82, 48, .48);
+  border: 0;
   border-radius: 2px;
   box-shadow: none;
   filter: drop-shadow(4px 3px 0 rgba(92,72,45,.18));
@@ -169,7 +169,6 @@ a.bg-navy {
   bottom: 4px;
   width: 18px;
   background: #f3df9f;
-  border: .5px solid rgba(112, 82, 48, .48);
 }
 .tape-cta::before {
   left: -9px;
@@ -215,4 +214,10 @@ a.bg-navy {
   background-image:
     linear-gradient(rgba(255,250,238,.22), rgba(255,250,238,.22)),
     url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='110' height='110'><filter id='paper'><feTurbulence type='fractalNoise' baseFrequency='.48' numOctaves='4' seed='11'/><feColorMatrix type='matrix' values='0 0 0 0 .48 0 0 0 0 .38 0 0 0 0 .25 0 0 0 .085 0'/></filter><rect width='100%25' height='100%25' filter='url(%23paper)'/></svg>");
+}
+
+
+/* Give the full bakery marquee (awning + intro card) one subtle lifted-paper shadow. */
+.bakery-marquee {
+  filter: drop-shadow(4px 4px 0 rgba(92,72,45,.12));
 }
