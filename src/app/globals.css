@@ -114,16 +114,19 @@ body {
 }
 
 
-/* Home bakery marquee */
-.bakery-awning { position: relative; width: calc(100% + 40px); margin-left: -20px; margin-top: 2px; }
-.bakery-awning svg { display: block; width: 100%; height: auto; }
-.bakery-awning__title {
-  position: absolute; left: 12%; right: 12%; top: 10%; height: 31%;
-  display: flex; align-items: center; justify-content: center; padding: 0 10px;
-  color: var(--color-navy); font-size: clamp(15px, 4.4vw, 21px);
-  font-weight: 900; letter-spacing: 0.025em; line-height: 1.05; text-transform: uppercase;
+/* Home bakery artwork */
+.bakery-awning {
+  position: relative;
+  width: 100%;
+  margin: -10px auto -34px;
+  overflow: hidden;
 }
-
+.bakery-awning__art {
+  display: block;
+  width: 100%;
+  height: auto;
+  transform: scale(1.08);
+}
 
 /* Handmade stationery buttons: keep typography clean, remove generic SaaS pill styling. */
 button.rounded-full,
@@ -140,23 +143,32 @@ a.bg-navy {
 
 
 /* v0.6 — handmade bakery UI */
-.handmade-button {
+.tape-cta {
   position: relative;
-  border: 2px solid #294767;
-  border-radius: 13px 9px 12px 8px;
-  box-shadow: 3px 4px 0 #d9c9a8;
-  overflow: visible;
+  isolation: isolate;
+  background: #f3df9f;
+  border: 0;
+  border-radius: 2px;
+  box-shadow: 2px 3px 0 rgba(92,72,45,.10);
+  transform: rotate(-.35deg);
 }
-.handmade-button::after {
-  content: "〰";
+.tape-cta::before,
+.tape-cta::after {
+  content: "";
   position: absolute;
-  right: 15px;
-  top: 50%;
-  transform: translateY(-55%) rotate(-8deg);
-  color: #f8f0df;
-  font-size: 18px;
-  font-weight: 400;
-  opacity: .9;
+  z-index: -1;
+  top: 4px;
+  bottom: 4px;
+  width: 18px;
+  background: #f3df9f;
+}
+.tape-cta::before {
+  left: -9px;
+  clip-path: polygon(25% 0,100% 4%,88% 28%,100% 49%,82% 72%,100% 100%,0 94%,13% 70%,0 48%,17% 25%,0 5%);
+}
+.tape-cta::after {
+  right: -9px;
+  clip-path: polygon(0 4%,75% 0,100% 8%,83% 27%,100% 50%,84% 72%,100% 94%,18% 100%,0 76%,15% 52%,0 29%,14% 12%);
 }
 .handmade-tab {
   border: 1.5px solid rgba(71,55,38,.28);
