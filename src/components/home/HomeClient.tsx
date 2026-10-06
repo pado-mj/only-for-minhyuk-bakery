@@ -78,6 +78,7 @@ export function HomeClient({ cakes, stats }: { cakes: CakeRecord[]; stats: { tot
         <div className="fixed left-1/2 top-0 z-40 flex w-full max-w-[480px] -translate-x-1/2 justify-end border-b border-ink/10 bg-cream/90 px-5 py-2.5 backdrop-blur">
           <LocaleSwitcher />
         </div>
+        <div className="bakery-marquee">
         <BakeryAwning brand={t.common.brand} />
         <div className="relative z-10 mx-auto -mt-[36px] w-full max-w-[400px] rounded-b-[3px] border-x-[3px] border-b-[3px] border-[#7d6449] bg-[#fffaf0] px-5 pb-5 pt-16">
           <p className="mx-auto max-w-[280px] text-sm text-ink-soft">{t.common.tagline}</p>
@@ -87,6 +88,7 @@ export function HomeClient({ cakes, stats }: { cakes: CakeRecord[]; stats: { tot
             <span className="text-ink-soft">+{stats.today} {t.home.today}</span>
             <span className="text-ink-soft">{stats.countries} {countryUnit}</span>
           </div>
+        </div>
         </div>
         <div className="mt-9 flex flex-col items-center">
           <Link href="/create" className="tape-cta inline-flex w-full max-w-[280px] items-center justify-center px-6 py-4 text-base font-bold text-navy transition-transform active:translate-y-[2px]">
