@@ -154,9 +154,9 @@ a.bg-navy {
   position: relative;
   isolation: isolate;
   background: #f3df9f;
-  border: 0;
+  border: .5px solid rgba(112, 82, 48, .48);
   border-radius: 2px;
-  box-shadow: 2px 3px 0 rgba(92,72,45,.10);
+  box-shadow: 4px 3px 0 rgba(92,72,45,.13);
   transform: rotate(-.35deg);
 }
 .tape-cta::before,
