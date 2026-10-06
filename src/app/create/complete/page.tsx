@@ -129,7 +129,7 @@ function CompleteContent() {
           </div>
           <div style={{ width: 900, height: 180, display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", fontFamily: '-apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo", "Malgun Gothic", sans-serif' }}>
             <div style={{ fontSize: 34, fontWeight: 800, color: "#3a2e22", letterSpacing: "0.02em" }}>ONLY FOR MINHYUK BAKERY</div>
-            <div style={{ marginTop: 10, fontSize: 26, color: "#7a6a52" }}>made by {record.nickname} · #{record.publicNumber}</div>
+            <div style={{ marginTop: 10, fontSize: 26, color: "#7a6a52" }}>made by {record.nickname}</div>
           </div>
         </div>
       </div>
