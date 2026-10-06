@@ -58,7 +58,7 @@ export function HomeClient({ cakes, stats }: { cakes: CakeRecord[]; stats: { tot
           <span className="text-ink-soft">{stats.countries} {t.home.countries}</span>
         </div>
         <Link href="/create" className="handmade-button mt-5 inline-block w-full max-w-[260px] bg-navy px-6 py-3 text-sm font-bold text-cream transition-transform active:translate-y-[2px]">
-          {t.home.makeCake}
+          <span aria-hidden="true" className="mr-2 text-base">◜◝</span>{t.home.makeCake}<span aria-hidden="true" className="ml-2 text-base">◟◞</span>
         </Link>
       </header>
 
