@@ -114,18 +114,18 @@ body {
 }
 
 
-/* Home bakery artwork */
-.bakery-awning {
-  position: relative;
-  width: 100%;
-  margin: -10px auto -34px;
-  overflow: hidden;
+/* Home bakery marquee */
+.bakery-awning { position: relative; width: calc(100% + 40px); margin-left: -20px; margin-top: 2px; }
+.bakery-awning svg { display: block; width: 100%; height: auto; }
+.bakery-awning__title-art {
+  position: absolute;
+  left: 15%;
+  right: 15%;
+  top: 7%;
+  height: 34%;
 }
-.bakery-awning__art {
-  display: block;
-  width: 100%;
-  height: auto;
-  transform: scale(1.08);
+.bakery-awning__title-art img {
+  object-fit: contain !important;
 }
 
 /* Handmade stationery buttons: keep typography clean, remove generic SaaS pill styling. */
