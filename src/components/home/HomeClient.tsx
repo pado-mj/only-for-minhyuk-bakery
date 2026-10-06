@@ -39,7 +39,21 @@ export function HomeClient({ cakes, stats }: { cakes: CakeRecord[]; stats: { tot
   const { t } = useI18n();
   const [mode, setMode] = useState<SortMode>("new");
   const [focusId, setFocusId] = useState<string | undefined>(undefined);
+  const [featureOpen, setFeatureOpen] = useState(false);
+  const [featureText, setFeatureText] = useState("");
+  const [featureState, setFeatureState] = useState<"idle" | "saving" | "success" | "error">("idle");
   const countryUnit = stats.countries === 1 ? t.home.country : t.home.countries;
+
+  const submitFeatureRequest = async () => {
+    const request = featureText.trim();
+    if (!request || featureState === "saving") return;
+    setFeatureState("saving");
+    try {
+      const res = await fetch("/api/feature-requests", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ request }) });
+      if (!res.ok) throw new Error("request failed");
+      setFeatureState("success"); setFeatureText("");
+    } catch { setFeatureState("error"); }
+  };
 
   const handleRandom = useCallback(() => {
     if (cakes.length === 0) return;
@@ -71,6 +85,7 @@ export function HomeClient({ cakes, stats }: { cakes: CakeRecord[]; stats: { tot
             {t.home.requestFeature}
           </a>
         </div>
+        {featureOpen && <div className="fixed inset-0 z-50 flex items-center justify-center bg-ink/25 px-6" onClick={() => setFeatureOpen(false)}><div className="paper-card w-full max-w-[360px] p-5 text-left" onClick={(e) => e.stopPropagation()}><p className="text-sm font-bold text-ink">{t.home.featureRequestTitle}</p><input value={featureText} onChange={(e) => setFeatureText(e.target.value.slice(0, 120))} placeholder={t.home.featureRequestPlaceholder} className="mt-4 w-full rounded-md border border-ink/20 bg-[#fffaf0] px-3 py-3 text-sm outline-none" /><button type="button" onClick={submitFeatureRequest} disabled={!featureText.trim() || featureState === "saving"} className="tape-cta mt-4 flex w-full items-center justify-center py-3 text-sm font-bold text-navy disabled:opacity-50">{t.home.featureRequestSubmit}</button>{featureState === "success" && <p className="mt-3 text-center text-xs text-navy">{t.home.featureRequestSuccess}</p>}{featureState === "error" && <p className="mt-3 text-center text-xs text-red-700">{t.home.featureRequestError}</p>}</div></div>}
       </header>
 
       <div className="sticky top-0 z-10 flex items-center justify-center gap-2 border-y border-ink/10 bg-cream/90 px-4 py-2.5 backdrop-blur">
