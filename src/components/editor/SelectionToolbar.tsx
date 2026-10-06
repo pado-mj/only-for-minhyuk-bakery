@@ -8,6 +8,7 @@ export function SelectionToolbar() {
   const selectedId = useEditorStore((s) => s.selectedId);
   const duplicateObject = useEditorStore((s) => s.duplicateObject);
   const removeObject = useEditorStore((s) => s.removeObject);
+  const flipObject = useEditorStore((s) => s.flipObject);
   const reorderLayer = useEditorStore((s) => s.reorderLayer);
 
   if (!selectedId) return <div className="h-10" />;
@@ -25,6 +26,12 @@ export function SelectionToolbar() {
         className="rounded-full bg-paper px-3 py-1.5 text-xs font-semibold text-ink-soft active:bg-paper-dark"
       >
         {t.editor.bringForward}
+      </button>
+      <button
+        onClick={() => flipObject(selectedId)}
+        className="rounded-full bg-paper px-3 py-1.5 text-xs font-semibold text-ink-soft active:bg-paper-dark"
+      >
+        {t.editor.flip}
       </button>
       <button
         onClick={() => duplicateObject(selectedId)}
