@@ -38,6 +38,8 @@ export interface CakeData {
   /** Legacy field kept for already-published cakes. New cakes do not tint artwork. */
   cakeColor?: string;
   cakeDesign?: string;
+  /** Hide the letter preview on the public Birthday Table. The detail page still shows the letter. */
+  hideLetterOnTable?: boolean;
   objects: CanvasObject[];
 }
 
