@@ -92,6 +92,7 @@ export default function DecoratePage() {
           </p>
         )}
         {tab === "background" && (
+          <>
           <div className="mb-4">
             <p className="mb-2 text-xs font-semibold text-ink-soft">{t.editor.backgroundTexture}</p>
             <div className="grid grid-cols-4 gap-2">
@@ -107,6 +108,7 @@ export default function DecoratePage() {
             value={present.background.color}
             onChange={(hex) => setBackgroundColor(hex, "custom")}
           />
+          </>
         )}
         {tab === "cake" && <CakePicker />}
         {tab === "decorations" && <DecorationPicker />}
