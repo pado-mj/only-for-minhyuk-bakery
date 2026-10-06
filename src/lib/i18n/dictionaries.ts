@@ -30,6 +30,7 @@ export const dictionaries = {
       scrollHint: "민혁이 생일날 촛불이 환하게 밝혀져요 ♡",
       loadingCakes: "케이크를 불러오는 중...",
       empty: "아직 케이크가 없어요. 첫 번째 케이크를 만들어 보세요!",
+      hiddenLetter: "숨겨진 편지",
     },
     editor: {
       title: "케이크 꾸미기",
@@ -95,6 +96,8 @@ export const dictionaries = {
       complete: "완료하기",
       submitting: "케이크를 올리는 중...",
       submitError: "케이크를 올리지 못했어요. 잠시 후 다시 시도해 주세요.",
+      hideLetter: "생일상에서 편지 내용 숨기기",
+      hideLetterHint: "케이크 목록에서는 편지 내용을 숨겨요. 케이크를 열면 편지는 읽을 수 있어요.",
     },
     complete: {
       title: "♡ 케이크가 완성됐어요 ♡",
@@ -147,6 +150,7 @@ export const dictionaries = {
       scrollHint: "The candles will light up on Minhyuk’s birthday ♡",
       loadingCakes: "Loading cakes...",
       empty: "No cakes yet. Be the first to make one!",
+      hiddenLetter: "Hidden letter",
     },
     editor: {
       title: "Decorate your cake",
@@ -264,6 +268,7 @@ export const dictionaries = {
       scrollHint: "ミニョクの誕生日にキャンドルが灯ります ♡",
       loadingCakes: "ケーキを読み込み中...",
       empty: "まだケーキがありません。最初のケーキを作ってみましょう!",
+      hiddenLetter: "非表示の手紙",
     },
     editor: {
       title: "ケーキをデコレーション",
@@ -329,6 +334,8 @@ export const dictionaries = {
       complete: "完了する",
       submitting: "ケーキを公開しています...",
       submitError: "ケーキを公開できませんでした。しばらくしてからもう一度お試しください。",
+      hideLetter: "誕生日テーブルで手紙の内容を隠す",
+      hideLetterHint: "ケーキ一覧では手紙の内容を隠します。ケーキを開くと手紙を読むことができます。",
     },
     complete: {
       title: "♡ ケーキが完成しました ♡",
