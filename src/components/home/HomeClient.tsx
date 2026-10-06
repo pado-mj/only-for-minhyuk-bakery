@@ -41,6 +41,7 @@ export function HomeClient({ cakes, stats }: { cakes: CakeRecord[]; stats: { tot
   const [focusId, setFocusId] = useState<string | undefined>(undefined);
   const [featureOpen, setFeatureOpen] = useState(false);
   const [featureText, setFeatureText] = useState("");
+  const [featureType, setFeatureType] = useState<"feature" | "bug" | "message">("feature");
   const [featureState, setFeatureState] = useState<"idle" | "saving" | "success" | "error">("idle");
   const countryUnit = stats.countries === 1 ? t.home.country : t.home.countries;
 
@@ -49,7 +50,7 @@ export function HomeClient({ cakes, stats }: { cakes: CakeRecord[]; stats: { tot
     if (!request || featureState === "saving") return;
     setFeatureState("saving");
     try {
-      const res = await fetch("/api/feature-requests", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ request }) });
+      const res = await fetch("/api/feature-requests", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ request, type: featureType }) });
       if (!res.ok) throw new Error("request failed");
       setFeatureState("success"); setFeatureText("");
     } catch { setFeatureState("error"); }
@@ -85,7 +86,7 @@ export function HomeClient({ cakes, stats }: { cakes: CakeRecord[]; stats: { tot
             {t.home.requestFeature}
           </button>
         </div>
-        {featureOpen && <div className="fixed inset-0 z-50 flex items-center justify-center bg-ink/25 px-6" onClick={() => setFeatureOpen(false)}><div className="paper-card w-full max-w-[360px] p-5 text-left" onClick={(e) => e.stopPropagation()}><p className="text-sm font-bold text-ink">{t.home.featureRequestTitle}</p><input value={featureText} onChange={(e) => setFeatureText(e.target.value.slice(0, 120))} placeholder={t.home.featureRequestPlaceholder} className="mt-4 w-full rounded-md border border-ink/20 bg-[#fffaf0] px-3 py-3 text-sm outline-none" /><button type="button" onClick={submitFeatureRequest} disabled={!featureText.trim() || featureState === "saving"} className="tape-cta mt-4 flex w-full items-center justify-center py-3 text-sm font-bold text-navy disabled:opacity-50">{t.home.featureRequestSubmit}</button>{featureState === "success" && <p className="mt-3 text-center text-xs text-navy">{t.home.featureRequestSuccess}</p>}{featureState === "error" && <p className="mt-3 text-center text-xs text-red-700">{t.home.featureRequestError}</p>}</div></div>}
+        {featureOpen && <div className="fixed inset-0 z-50 flex items-center justify-center bg-ink/25 px-6" onClick={() => setFeatureOpen(false)}><div className="paper-card w-full max-w-[360px] p-5 text-left" onClick={(e) => e.stopPropagation()}><p className="text-sm font-bold text-ink">{t.home.featureRequestTitle}</p><p className="mt-2 text-xs leading-5 text-ink-soft">{t.home.featureRequestBody}</p><p className="mt-4 text-xs font-bold text-ink">{t.home.featureTypeLabel}</p><div className="mt-2 flex gap-2">{(["feature", "bug", "message"] as const).map((type) => <button key={type} type="button" onClick={() => setFeatureType(type)} className={`handmade-tab px-3 py-2 text-xs font-bold ${featureType === type ? "bg-navy text-cream" : "bg-[#fffaf0] text-ink-soft"}`}>{type === "feature" ? t.home.featureTypeFeature : type === "bug" ? t.home.featureTypeBug : t.home.featureTypeMessage}</button>)}</div><input value={featureText} onChange={(e) => setFeatureText(e.target.value.slice(0, 120))} placeholder={t.home.featureRequestPlaceholder} className="mt-4 w-full rounded-md border border-ink/20 bg-[#fffaf0] px-3 py-3 text-sm outline-none" /><button type="button" onClick={submitFeatureRequest} disabled={!featureText.trim() || featureState === "saving"} className="tape-cta mt-4 flex w-full items-center justify-center py-3 text-sm font-bold text-navy disabled:opacity-50">{t.home.featureRequestSubmit}</button>{featureState === "success" && <p className="mt-3 text-center text-xs text-navy">{t.home.featureRequestSuccess}</p>}{featureState === "error" && <p className="mt-3 text-center text-xs text-red-700">{t.home.featureRequestError}</p>}</div></div>}
       </header>
 
       <div className="sticky top-0 z-10 flex items-center justify-center gap-2 border-y border-ink/10 bg-cream/90 px-4 py-2.5 backdrop-blur">
