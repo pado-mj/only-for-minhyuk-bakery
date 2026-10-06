@@ -6,10 +6,12 @@ export function ColorPicker({
   presets,
   value,
   onChange,
+  showCustom = true,
 }: {
   presets: { id: string; label?: string; hex: string }[];
   value: string;
   onChange: (hex: string) => void;
+  showCustom?: boolean;
 }) {
   const { t } = useI18n();
   return (
@@ -28,6 +30,7 @@ export function ColorPicker({
           />
         ))}
       </div>
+      {showCustom && (<>
       <p className="mb-2 mt-4 text-xs font-semibold text-ink-soft">{t.editor.customColor}</p>
       <div className="flex items-center gap-3">
         <input
@@ -47,6 +50,7 @@ export function ColorPicker({
           placeholder="#F3D9B1"
         />
       </div>
+      </>)}
     </div>
   );
 }
