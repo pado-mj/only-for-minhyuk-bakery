@@ -31,7 +31,7 @@ interface EditorState {
   markSubmitted: () => void;
 
   setBackgroundColor: (hex: string, mode: "preset" | "custom") => void;
-  setBackgroundTexture: (texture: "paper" | "check" | "cream" | "kraft") => void;
+  setBackgroundTexture: (texture: "paper" | "check" | "kraft") => void;
   setCakeDesign: (id: string) => void;
   addObject: (partial: Omit<CanvasObject, "id" | "zIndex">) => string;
   updateObjectTransform: (
@@ -69,7 +69,7 @@ export const useEditorStore = create<EditorState>((set, get) => ({
     set({
       past: [...past, clone(present)].slice(-HISTORY_LIMIT),
       future: [],
-      present: { ...present, background: { mode, color: hex } },
+      present: { ...present, background: { ...present.background, mode, color: hex } },
     });
   },
 
