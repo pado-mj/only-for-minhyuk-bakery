@@ -74,6 +74,9 @@ export const dictionaries = {
       bringForward: "앞으로",
       sendBackward: "뒤로",
       goToCandles: "촛불 꽂으러 가기",
+      backToTable: "생일상으로 돌아가기",
+      backToTableConfirmTitle: "생일상으로 돌아갈까요?",
+      backToTableConfirmBody: "지금 만들고 있는 케이크와 작성 내용이 모두 사라져요.",
     },
     candles: {
       title: "소원 빌기",
@@ -205,6 +208,9 @@ export const dictionaries = {
       bringForward: "Forward",
       sendBackward: "Backward",
       goToCandles: "Add candles",
+      backToTable: "Back to Birthday Table",
+      backToTableConfirmTitle: "Go back to the Birthday Table?",
+      backToTableConfirmBody: "The cake and everything you’ve entered so far will be lost.",
     },
     candles: {
       title: "Make a wish",
@@ -334,6 +340,9 @@ export const dictionaries = {
       bringForward: "前面へ",
       sendBackward: "背面へ",
       goToCandles: "ろうそくを立てる",
+      backToTable: "誕生日テーブルに戻る",
+      backToTableConfirmTitle: "誕生日テーブルに戻りますか？",
+      backToTableConfirmBody: "作成中のケーキと入力した内容はすべて消えます。",
     },
     candles: {
       title: "願いを込めて",
