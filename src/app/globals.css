@@ -39,7 +39,10 @@ body {
 }
 
 body {
-  background: var(--background);
+  background-color: var(--background);
+  background-image:
+    linear-gradient(rgba(255,255,255,.16), rgba(255,255,255,.16)),
+    url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='p'><feTurbulence type='fractalNoise' baseFrequency='.72' numOctaves='3' stitchTiles='stitch'/><feColorMatrix type='matrix' values='0 0 0 0 .43 0 0 0 0 .34 0 0 0 0 .24 0 0 0 .055 0'/></filter><rect width='100%25' height='100%25' filter='url(%23p)'/></svg>");
   color: var(--foreground);
   font-family: var(--font-sans);
 }
@@ -63,19 +66,22 @@ body {
 }
 
 .paper-card {
-  background: var(--color-paper);
-  border-radius: 1.25rem;
-  box-shadow:
-    0 1px 0 rgba(58, 46, 34, 0.06),
-    0 8px 20px -8px rgba(58, 46, 34, 0.25);
+  position: relative;
+  background: #fffdf8;
+  border: 1px solid rgba(58, 46, 34, 0.16);
+  border-radius: 0.35rem;
+  box-shadow: 2px 3px 0 rgba(58, 46, 34, 0.08), 0 8px 18px -12px rgba(58, 46, 34, 0.28);
+  transform: rotate(-0.35deg);
 }
+.paper-card:nth-child(even) { transform: rotate(0.35deg); }
 
 /* mobile-width app shell, centered on wider viewports */
 .app-shell {
   max-width: 480px;
   margin: 0 auto;
   min-height: 100dvh;
-  background: var(--color-cream);
+  background-color: var(--color-cream);
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='p'><feTurbulence type='fractalNoise' baseFrequency='.72' numOctaves='3' stitchTiles='stitch'/><feColorMatrix type='matrix' values='0 0 0 0 .43 0 0 0 0 .34 0 0 0 0 .24 0 0 0 .045 0'/></filter><rect width='100%25' height='100%25' filter='url(%23p)'/></svg>");
   position: relative;
   box-shadow: 0 0 60px rgba(58, 46, 34, 0.08);
 }
@@ -116,4 +122,18 @@ body {
   display: flex; align-items: center; justify-content: center; padding: 0 10px;
   color: var(--color-navy); font-size: clamp(15px, 4.4vw, 21px);
   font-weight: 900; letter-spacing: 0.025em; line-height: 1.05; text-transform: uppercase;
+}
+
+
+/* Handmade stationery buttons: keep typography clean, remove generic SaaS pill styling. */
+button.rounded-full,
+a.rounded-full {
+  border-radius: 0.55rem !important;
+}
+button.bg-berry,
+a.bg-berry,
+button.bg-navy,
+a.bg-navy {
+  border: 1.5px solid rgba(36, 58, 86, 0.72);
+  box-shadow: 2px 3px 0 rgba(36, 58, 86, 0.13);
 }
