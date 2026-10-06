@@ -29,7 +29,7 @@ function BakeryAwning({ brand }: { brand: string }) {
         </g>
       </svg>
       <div className="bakery-awning__title-art">
-        <Image src="/assets/hbd-bakery.png" alt="" fill sizes="360px" className="object-contain" priority />
+        <Image src="/assets/saeng-il-sang.png" alt="" fill sizes="360px" className="object-contain" priority />
       </div>
     </div>
   );
