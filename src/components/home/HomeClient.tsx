@@ -10,7 +10,7 @@ import type { CakeRecord } from "@/types/cake";
 
 function BakeryAwning({ brand }: { brand: string }) {
   return (
-    <div className="bakery-awning" aria-label={brand}>
+    <div className="bakery-awning relative z-20" aria-label={brand}>
       <svg viewBox="0 0 1000 330" role="img" aria-hidden="true">
         <defs>
           <filter id="pencil-wobble" x="-4%" y="-6%" width="108%" height="112%">
@@ -68,7 +68,7 @@ export function HomeClient({ cakes, stats }: { cakes: CakeRecord[]; stats: { tot
       <header className="paper-texture px-5 pb-6 pt-5 text-center">
         <div className="mb-1 flex justify-end"><LocaleSwitcher /></div>
         <BakeryAwning brand={t.common.brand} />
-        <div className="relative z-0 mx-auto -mt-[22px] w-full max-w-[400px] rounded-b-[3px] border-x-[3px] border-b-[3px] border-[#7d6449] bg-[#fffaf0] px-5 pb-5 pt-12">
+        <div className="relative z-10 mx-auto -mt-[36px] w-full max-w-[400px] rounded-b-[3px] border-x-[3px] border-b-[3px] border-[#7d6449] bg-[#fffaf0] px-5 pb-5 pt-16">
           <p className="mx-auto max-w-[280px] text-sm text-ink-soft">{t.common.tagline}</p>
           <p className="mx-auto mt-2 max-w-[300px] text-[11px] font-semibold text-navy/75">{t.home.scrollHint}</p>
           <div className="mt-5 flex items-center justify-center gap-4 text-xs font-semibold text-navy">
