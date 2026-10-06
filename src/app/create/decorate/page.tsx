@@ -52,7 +52,8 @@ export default function DecoratePage() {
 
   return (
     <div className="px-4">
-      <h1 className="mb-3 text-center text-sm font-bold text-ink">{t.editor.title}</h1>
+      <h1 className="mb-1 text-center text-sm font-bold text-ink">{t.editor.title}</h1>
+      <p className="mb-3 text-center text-xs text-ink-soft">{t.editor.intro}</p>
 
       <CanvasStage />
       <SelectionToolbar />
@@ -84,6 +85,11 @@ export default function DecoratePage() {
       </div>
 
       <div className="paper-card mt-3 min-h-[220px] p-4">
+        {tab !== "myImage" && (
+          <p className="mb-4 border-b border-ink/10 pb-3 text-xs leading-relaxed text-ink-soft">
+            {tab === "background" ? t.editor.backgroundHint : tab === "cake" ? t.editor.cakeHint : tab === "decorations" ? t.editor.decorationsHint : t.editor.topperHint}
+          </p>
+        )}
         {tab === "background" && (
           <ColorPicker
             presets={BACKGROUND_COLOR_PRESETS}
