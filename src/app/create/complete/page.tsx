@@ -19,6 +19,7 @@ function CompleteContent() {
   const [saving, setSaving] = useState(false);
   const [saveError, setSaveError] = useState(false);
   const [letterOpen, setLetterOpen] = useState(false);
+  const [exportImage, setExportImage] = useState<string | null>(null);
   const exportRef = useRef<HTMLDivElement>(null);
 
   const record = lastCreated?.publicId === publicId ? lastCreated : fetched;
@@ -53,26 +54,39 @@ function CompleteContent() {
     }
   };
 
+  const renderExportImage = async () => {
+    if (!exportRef.current) return null;
+    const { toPng } = await import("html-to-image");
+    return toPng(exportRef.current, { width: 1080, height: 1080, pixelRatio: 1, skipFonts: true, cacheBust: true });
+  };
+
+  useEffect(() => {
+    if (!record || !exportRef.current) return;
+    let cancelled = false;
+    const timer = window.setTimeout(async () => {
+      try {
+        const dataUrl = await renderExportImage();
+        if (!cancelled && dataUrl) setExportImage(dataUrl);
+      } catch (err) {
+        console.error("preview image failed:", err);
+      }
+    }, 350);
+    return () => { cancelled = true; window.clearTimeout(timer); };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [record?.publicId]);
+
   const handleSaveImage = async () => {
     if (!exportRef.current || saving) return;
     setSaving(true);
     setSaveError(false);
     try {
-      const { toPng } = await import("html-to-image");
-      // skipFonts: without it, html-to-image walks every stylesheet on the
-      // page trying to fetch+embed every @font-face it finds — Pretendard
-      // Variable is large enough that this can hang for a very long time.
-      // The export doesn't need custom font fidelity, so skip it.
-      const capture = toPng(exportRef.current, {
-        width: 1080,
-        height: 1080,
-        pixelRatio: 1,
-        skipFonts: true,
-      });
+      const capture = exportImage ? Promise.resolve(exportImage) : renderExportImage();
       const timeout = new Promise<never>((_, reject) =>
         setTimeout(() => reject(new Error("timeout")), 10000)
       );
       const dataUrl = await Promise.race([capture, timeout]);
+      if (!dataUrl) throw new Error("export failed");
+      setExportImage(dataUrl);
       const link = document.createElement("a");
       link.href = dataUrl;
       link.download = `only-for-minhyuk-bakery-cake-${record.publicNumber}.png`;
@@ -93,19 +107,26 @@ function CompleteContent() {
       <h1 className="text-lg font-extrabold text-ink">{t.complete.title}</h1>
 
       <div className="mx-auto mt-6 w-56">
-        <CakeCanvas cakeData={record.cakeData} candlesLit={false} />
+        {exportImage ? (
+          // A real flattened image: long-press/right-click copies the whole finished card, not individual assets.
+          // eslint-disable-next-line @next/next/no-img-element
+          <img src={exportImage} alt="" className="aspect-square w-full rounded-2xl object-cover" />
+        ) : (
+          <CakeCanvas cakeData={record.cakeData} candlesLit={false} />
+        )}
       </div>
 
       {/* Off-screen, full-resolution, un-rounded version for PNG export —
           includes the branding footer the on-screen preview doesn't need. */}
       <div style={{ position: "fixed", top: 0, left: -10000, width: 1080, height: 1080 }} aria-hidden>
-        <div ref={exportRef} style={{ width: 1080, height: 1080 }}>
-          <CakeCanvas
-            cakeData={record.cakeData}
-            candlesLit={false}
-            rounded={false}
-            branding={{ nickname: record.nickname, publicNumber: record.publicNumber }}
-          />
+        <div ref={exportRef} style={{ width: 1080, height: 1080, background: "#fbf3e3", display: "flex", flexDirection: "column", alignItems: "center" }}>
+          <div style={{ width: 900, height: 900 }}>
+            <CakeCanvas cakeData={record.cakeData} candlesLit={false} rounded={false} />
+          </div>
+          <div style={{ width: 900, height: 180, display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", fontFamily: '-apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo", "Malgun Gothic", sans-serif' }}>
+            <div style={{ fontSize: 34, fontWeight: 800, color: "#3a2e22", letterSpacing: "0.02em" }}>ONLY FOR MINHYUK BAKERY</div>
+            <div style={{ marginTop: 10, fontSize: 26, color: "#7a6a52" }}>made by {record.nickname} · #{record.publicNumber}</div>
+          </div>
         </div>
       </div>
 
