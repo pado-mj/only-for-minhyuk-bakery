@@ -25,6 +25,7 @@ export default function DecoratePage() {
 
   const present = useEditorStore((s) => s.present);
   const setBackgroundColor = useEditorStore((s) => s.setBackgroundColor);
+  const setBackgroundTexture = useEditorStore((s) => s.setBackgroundTexture);
   const undo = useEditorStore((s) => s.undo);
   const redo = useEditorStore((s) => s.redo);
   const resetCake = useEditorStore((s) => s.resetCake);
@@ -91,6 +92,16 @@ export default function DecoratePage() {
           </p>
         )}
         {tab === "background" && (
+          <div className="mb-4">
+            <p className="mb-2 text-xs font-semibold text-ink-soft">{t.editor.backgroundTexture}</p>
+            <div className="grid grid-cols-4 gap-2">
+              {(["paper","check","cream","kraft"] as const).map((texture) => (
+                <button key={texture} onClick={() => setBackgroundTexture(texture)} className={`rounded-lg border px-2 py-2 text-[11px] font-semibold ${(present.background.texture ?? "paper") === texture ? "border-berry text-berry" : "border-ink/15 text-ink-soft"}`}>
+                  {t.editor[texture === "paper" ? "texturePaper" : texture === "check" ? "textureCheck" : texture === "cream" ? "textureCream" : "textureKraft"]}
+                </button>
+              ))}
+            </div>
+          </div>
           <ColorPicker
             presets={BACKGROUND_COLOR_PRESETS}
             value={present.background.color}
