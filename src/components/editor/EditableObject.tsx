@@ -123,7 +123,9 @@ export function EditableObject({
       onPointerDown={onDragStart}
     >
       <div className={isSelected ? "outline outline-2 outline-dashed outline-berry outline-offset-4 rounded-lg" : ""}>
-        <CanvasObjectSprite object={object} lit={candlesLit} />
+        <div style={{ transform: object.flipX ? "scaleX(-1)" : undefined }}>
+          <CanvasObjectSprite object={object} lit={candlesLit} />
+        </div>
       </div>
       {isSelected && (
         <div
