@@ -10,7 +10,7 @@ export function CakeTableItem({ cake }: { cake: CakeRecord }) {
   return (
     <Link
       href={`/cake/${cake.publicId}`}
-      className="paper-card block p-[10px] transition-transform active:scale-[0.98]"
+      className="cake-scrap block transition-transform active:scale-[0.98]"
     >
       <div className="w-full">
         <CakeCanvas cakeData={cake.cakeData} candlesLit={false} />
