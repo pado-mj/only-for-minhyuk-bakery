@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { BirthdayTable, type SortMode } from "@/components/home/BirthdayTable";
@@ -43,7 +43,15 @@ export function HomeClient({ cakes, stats }: { cakes: CakeRecord[]; stats: { tot
   const [featureText, setFeatureText] = useState("");
   const [featureType, setFeatureType] = useState<"feature" | "bug" | "message">("feature");
   const [featureState, setFeatureState] = useState<"idle" | "saving" | "success" | "error">("idle");
+  const [notices, setNotices] = useState<Array<{ id: number; title: string; body: string }>>([]);
   const countryUnit = stats.countries === 1 ? t.home.country : t.home.countries;
+
+  useEffect(() => {
+    fetch("/api/notices")
+      .then((res) => res.ok ? res.json() : { notices: [] })
+      .then((data) => setNotices(Array.isArray(data.notices) ? data.notices : []))
+      .catch(() => setNotices([]));
+  }, []);
 
   const submitFeatureRequest = async () => {
     const request = featureText.trim();
@@ -101,6 +109,19 @@ export function HomeClient({ cakes, stats }: { cakes: CakeRecord[]; stats: { tot
         </button>
       </div>
       <BirthdayTable key={`${mode}-${focusId ?? ""}`} cakes={cakes} mode={mode} focusId={focusId} />
+      {notices.length > 0 && (
+        <section className="px-5 pb-10 pt-5" aria-label="Notice">
+          <div className="mx-auto max-w-[400px] border-y border-[#8b7357]/35 py-4 text-left">
+            <p className="text-[11px] font-bold tracking-[0.18em] text-navy">NOTICE</p>
+            {notices.map((notice) => (
+              <div key={notice.id} className="mt-2">
+                <p className="text-sm font-bold text-ink">{notice.title}</p>
+                {notice.body !== notice.title && <p className="mt-1 text-xs leading-5 text-ink-soft">{notice.body}</p>}
+              </div>
+            ))}
+          </div>
+        </section>
+      )}
     </div>
   );
 }
