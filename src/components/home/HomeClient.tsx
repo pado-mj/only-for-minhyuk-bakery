@@ -11,14 +11,26 @@ import type { CakeRecord } from "@/types/cake";
 function BakeryAwning({ brand }: { brand: string }) {
   return (
     <div className="bakery-awning" aria-label={brand}>
-      <Image
-        src="/assets/hbd-bakery.png"
-        alt=""
-        width={1024}
-        height={1024}
-        className="bakery-awning__art"
-        priority
-      />
+      <svg viewBox="0 0 1000 330" role="img" aria-hidden="true">
+        <defs>
+          <filter id="pencil-wobble" x="-4%" y="-6%" width="108%" height="112%">
+            <feTurbulence type="fractalNoise" baseFrequency="0.012 0.035" numOctaves="2" seed="7" result="noise" />
+            <feDisplacementMap in="SourceGraphic" in2="noise" scale="3" />
+          </filter>
+          <pattern id="awning-stripes" width="130" height="260" patternUnits="userSpaceOnUse" patternTransform="skewX(-10)">
+            <rect width="65" height="260" fill="#79a9d8" />
+            <rect x="65" width="65" height="260" fill="#fff7e8" />
+          </pattern>
+        </defs>
+        <g filter="url(#pencil-wobble)">
+          <rect x="82" y="18" width="836" height="125" rx="8" fill="#fff8ea" stroke="#7d6449" strokeWidth="7" />
+          <path d="M55 143 H945 L990 255 Q985 294 950 294 Q918 294 900 270 Q882 294 850 294 Q818 294 800 270 Q782 294 750 294 Q718 294 700 270 Q682 294 650 294 Q618 294 600 270 Q582 294 550 294 Q518 294 500 270 Q482 294 450 294 Q418 294 400 270 Q382 294 350 294 Q318 294 300 270 Q282 294 250 294 Q218 294 200 270 Q182 294 150 294 Q118 294 100 270 Q82 294 50 294 Q15 294 10 255 Z" fill="url(#awning-stripes)" stroke="#7d6449" strokeWidth="7" strokeLinejoin="round" />
+          <path d="M55 143 H945" fill="none" stroke="#7d6449" strokeWidth="6" />
+        </g>
+      </svg>
+      <div className="bakery-awning__title-art">
+        <Image src="/assets/hbd-bakery.png" alt="" fill sizes="360px" className="object-contain" priority />
+      </div>
     </div>
   );
 }
