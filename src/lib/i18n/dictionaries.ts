@@ -244,6 +244,8 @@ export const dictionaries = {
       complete: "Complete",
       submitting: "Publishing your cake...",
       submitError: "Couldn't publish your cake. Please try again in a moment.",
+      hideLetter: "Hide letter text on the Birthday Table",
+      hideLetterHint: "The letter text stays hidden in the cake list. It can still be read after opening the cake.",
     },
     complete: {
       title: "♡ YOUR CAKE IS READY ♡",
