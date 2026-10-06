@@ -113,7 +113,7 @@ export default function CandlesPage() {
 
       <button
         onClick={() => router.push("/create/letter")}
-        className="mt-6 w-full rounded-full bg-berry py-3.5 text-sm font-bold text-cream shadow-lg transition-transform active:scale-[0.98]"
+        className="tape-cta mt-6 w-full py-3.5 text-sm font-bold text-navy transition-transform active:translate-y-[2px]"
       >
         {t.candles.goToLetter}
       </button>
