@@ -2,18 +2,21 @@ import Link from "next/link";
 import { CakeCanvas } from "@/components/cake/CakeCanvas";
 import { CountryLabel } from "@/components/ui/CountryLabel";
 import { countryFlagEmoji } from "@/lib/countries";
+import { isBirthdayLive } from "@/lib/birthday";
 import { useI18n } from "@/lib/i18n/context";
 import type { CakeRecord } from "@/types/cake";
 
 export function CakeTableItem({ cake }: { cake: CakeRecord }) {
   const { locale, t } = useI18n();
+  const candlesLit = isBirthdayLive();
+
   return (
     <Link
       href={`/cake/${cake.publicId}`}
       className="cake-scrap block transition-transform active:scale-[0.98]"
     >
       <div className="w-full">
-        <CakeCanvas cakeData={cake.cakeData} candlesLit={false} />
+        <CakeCanvas cakeData={cake.cakeData} candlesLit={candlesLit} />
       </div>
       <div className="px-1 pb-1 pt-2.5">
         <div className="flex min-w-0 items-center justify-between gap-2 text-xs font-semibold text-ink">
