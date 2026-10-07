@@ -35,10 +35,20 @@ function BakeryAwning({ brand }: { brand: string }) {
   );
 }
 
-export function HomeClient({ cakes, stats }: { cakes: CakeRecord[]; stats: { total: number; today: number; countries: number } }) {
+export function HomeClient({ initialCakes, initialHasMore, stats }: { initialCakes: CakeRecord[]; initialHasMore: boolean; stats: { total: number; today: number; countries: number } }) {
   const { t } = useI18n();
   const [mode, setMode] = useState<SortMode>("new");
+  const [cakesByMode, setCakesByMode] = useState<Record<SortMode, CakeRecord[]>>({
+    new: initialCakes,
+    mostViewed: [],
+  });
+  const [hasMoreByMode, setHasMoreByMode] = useState<Record<SortMode, boolean>>({
+    new: initialHasMore,
+    mostViewed: true,
+  });
+  const [loadingMode, setLoadingMode] = useState<SortMode | null>(null);
   const [focusId, setFocusId] = useState<string | undefined>(undefined);
+  const cakes = cakesByMode[mode];
   const [featureOpen, setFeatureOpen] = useState(false);
   const [featureText, setFeatureText] = useState("");
   const [featureType, setFeatureType] = useState<"feature" | "bug" | "message">("feature");
@@ -64,13 +74,57 @@ export function HomeClient({ cakes, stats }: { cakes: CakeRecord[]; stats: { tot
     } catch { setFeatureState("error"); }
   };
 
-  const handleRandom = useCallback(() => {
-    if (cakes.length === 0) return;
-    const pick = cakes[Math.floor(Math.random() * cakes.length)];
-    setMode("new");
-    setFocusId(pick?.publicId);
-    requestAnimationFrame(() => window.scrollTo({ top: 0, behavior: "smooth" }));
-  }, [cakes]);
+  const loadBatch = useCallback(async (targetMode: SortMode, reset = false) => {
+    if (loadingMode) return;
+    const current = cakesByMode[targetMode];
+    if (!reset && !hasMoreByMode[targetMode]) return;
+
+    setLoadingMode(targetMode);
+    try {
+      const offset = reset ? 0 : current.length;
+      const res = await fetch(`/api/cakes?sort=${targetMode}&offset=${offset}&limit=30`);
+      if (!res.ok) throw new Error("cake batch request failed");
+      const data = await res.json() as { cakes?: CakeRecord[]; hasMore?: boolean };
+      const next = Array.isArray(data.cakes) ? data.cakes : [];
+      setCakesByMode((prev) => ({
+        ...prev,
+        [targetMode]: reset ? next : [...prev[targetMode], ...next],
+      }));
+      setHasMoreByMode((prev) => ({ ...prev, [targetMode]: Boolean(data.hasMore) }));
+    } catch {
+      setHasMoreByMode((prev) => ({ ...prev, [targetMode]: false }));
+    } finally {
+      setLoadingMode(null);
+    }
+  }, [cakesByMode, hasMoreByMode, loadingMode]);
+
+  const changeMode = useCallback((nextMode: SortMode) => {
+    setMode(nextMode);
+    setFocusId(undefined);
+    if (cakesByMode[nextMode].length === 0) void loadBatch(nextMode, true);
+  }, [cakesByMode, loadBatch]);
+
+  const handleRandom = useCallback(async () => {
+    if (stats.total < 1 || loadingMode) return;
+    const offset = Math.floor(Math.random() * stats.total);
+    setLoadingMode("new");
+    try {
+      const res = await fetch(`/api/cakes?sort=new&offset=${offset}&limit=1`);
+      if (!res.ok) throw new Error("random cake request failed");
+      const data = await res.json() as { cakes?: CakeRecord[] };
+      const pick = Array.isArray(data.cakes) ? data.cakes[0] : undefined;
+      if (!pick) return;
+      setCakesByMode((prev) => ({
+        ...prev,
+        new: [pick, ...prev.new.filter((cake) => cake.publicId !== pick.publicId)],
+      }));
+      setMode("new");
+      setFocusId(pick.publicId);
+      requestAnimationFrame(() => window.scrollTo({ top: 0, behavior: "smooth" }));
+    } finally {
+      setLoadingMode(null);
+    }
+  }, [loadingMode, stats.total]);
 
   return (
     <div>
@@ -103,7 +157,7 @@ export function HomeClient({ cakes, stats }: { cakes: CakeRecord[]; stats: { tot
 
       <div className="sticky top-0 z-10 flex items-center justify-center gap-2 border-y border-ink/10 bg-cream/90 px-4 py-2.5 backdrop-blur">
         {(["new", "mostViewed"] as SortMode[]).map((m) => (
-          <button key={m} onClick={() => { setMode(m); setFocusId(undefined); }}
+          <button key={m} onClick={() => changeMode(m)}
             className={`handmade-tab px-3 py-1.5 text-[11px] font-bold tracking-wide transition-colors ${mode === m ? "bg-navy text-cream" : "bg-[#fffaf0] text-ink-soft"}`}>
             {m === "new" ? t.home.new : t.home.mostViewed}
           </button>
@@ -112,7 +166,12 @@ export function HomeClient({ cakes, stats }: { cakes: CakeRecord[]; stats: { tot
           {t.home.random}
         </button>
       </div>
-      <BirthdayTable key={`${mode}-${focusId ?? ""}`} cakes={cakes} mode={mode} focusId={focusId} />
+      <BirthdayTable
+        cakes={cakes}
+        hasMore={hasMoreByMode[mode]}
+        loading={loadingMode === mode}
+        onLoadMore={() => void loadBatch(mode)}
+      />
       {notices.length > 0 && (
         <>
           <div className="h-16" aria-hidden="true" />
