@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import { createSupabaseAdminClient } from "@/lib/supabase/admin";
 import { generatePublicId } from "@/lib/id";
+import { fetchPublishedCakesPage, HOME_PAGE_SIZE, type CakeSortMode } from "@/lib/supabase/queries";
 import type { CakeData, CanvasObject } from "@/types/cake";
 
 const VALID_OBJECT_TYPES = ["image", "decoration", "topper", "candle"];
@@ -89,6 +90,21 @@ function isRateLimited(ip: string) {
   if (last && now - last < RATE_LIMIT_WINDOW_MS) return true;
   recentSubmissions.set(ip, now);
   return false;
+}
+
+export async function GET(request: Request) {
+  const { searchParams } = new URL(request.url);
+  const offset = Math.max(0, Number.parseInt(searchParams.get("offset") ?? "0", 10) || 0);
+  const requestedLimit = Number.parseInt(searchParams.get("limit") ?? String(HOME_PAGE_SIZE), 10) || HOME_PAGE_SIZE;
+  const limit = Math.min(HOME_PAGE_SIZE, Math.max(1, requestedLimit));
+  const sort: CakeSortMode = searchParams.get("sort") === "mostViewed" ? "mostViewed" : "new";
+
+  const result = await fetchPublishedCakesPage({ offset, limit, sort });
+  return NextResponse.json(result, {
+    headers: {
+      "Cache-Control": "public, s-maxage=60, stale-while-revalidate=300",
+    },
+  });
 }
 
 export async function POST(request: Request) {
