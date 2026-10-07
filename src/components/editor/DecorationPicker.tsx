@@ -51,8 +51,13 @@ export function DecorationPicker() {
                 layer: 3,
               })
             }
-            className="paper-card flex flex-col items-center gap-1 p-2 transition-transform active:scale-95"
+            className="paper-card relative flex flex-col items-center gap-1 p-2 transition-transform active:scale-95"
           >
+            {asset.isNew && (
+              <span className="absolute right-1 top-1 -rotate-6 rounded-sm bg-berry px-1.5 py-0.5 text-[8px] font-black leading-none tracking-[0.08em] text-white shadow-sm">
+                NEW
+              </span>
+            )}
             {asset.imageSrc ? (
               // eslint-disable-next-line @next/next/no-img-element
               <img src={asset.imageSrc} alt="" className="h-10 w-10 object-contain" draggable={false} />
