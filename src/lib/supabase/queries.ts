@@ -18,6 +18,9 @@ interface CakeRow {
 const SELECT_COLUMNS =
   "id, public_id, public_number, nickname, country, letter, cake_data, final_image_url, view_count, created_at, status";
 
+export const HOME_PAGE_SIZE = 30;
+export type CakeSortMode = "new" | "mostViewed";
+
 function mapRow(row: CakeRow): CakeRecord {
   return {
     id: row.id,
@@ -34,20 +37,65 @@ function mapRow(row: CakeRow): CakeRecord {
   };
 }
 
-export async function fetchPublishedCakes(limit = 500): Promise<CakeRecord[]> {
+export async function fetchPublishedCakesPage({
+  offset = 0,
+  limit = HOME_PAGE_SIZE,
+  sort = "new",
+}: {
+  offset?: number;
+  limit?: number;
+  sort?: CakeSortMode;
+} = {}): Promise<{ cakes: CakeRecord[]; hasMore: boolean }> {
   const supabase = createSupabaseAdminClient();
-  const { data, error } = await supabase
-    .from("cakes")
-    .select(SELECT_COLUMNS)
-    .eq("status", "published")
-    .order("created_at", { ascending: false })
-    .limit(limit);
+  let query = supabase.from("cakes").select(SELECT_COLUMNS).eq("status", "published");
+
+  query =
+    sort === "mostViewed"
+      ? query.order("view_count", { ascending: false }).order("created_at", { ascending: false })
+      : query.order("created_at", { ascending: false });
+
+  const { data, error } = await query.range(offset, offset + limit);
 
   if (error) {
-    console.error("fetchPublishedCakes failed:", error.message);
-    return [];
+    console.error("fetchPublishedCakesPage failed:", error.message);
+    return { cakes: [], hasMore: false };
   }
-  return (data as unknown as CakeRow[]).map(mapRow);
+
+  const rows = (data as unknown as CakeRow[]).map(mapRow);
+  return { cakes: rows.slice(0, limit), hasMore: rows.length > limit };
+}
+
+export async function fetchPublishedCakes(limit = 500): Promise<CakeRecord[]> {
+  const { cakes } = await fetchPublishedCakesPage({ limit });
+  return cakes;
+}
+
+export async function fetchHomeStats() {
+  const supabase = createSupabaseAdminClient();
+  const startOfToday = new Date();
+  startOfToday.setHours(0, 0, 0, 0);
+
+  const [totalResult, todayResult, countriesResult] = await Promise.all([
+    supabase.from("cakes").select("id", { count: "exact", head: true }).eq("status", "published"),
+    supabase.from("cakes").select("id", { count: "exact", head: true }).eq("status", "published").gte("created_at", startOfToday.toISOString()),
+    supabase.from("cakes").select("country").eq("status", "published").not("country", "is", null),
+  ]);
+
+  if (totalResult.error) console.error("fetchHomeStats total failed:", totalResult.error.message);
+  if (todayResult.error) console.error("fetchHomeStats today failed:", todayResult.error.message);
+  if (countriesResult.error) console.error("fetchHomeStats countries failed:", countriesResult.error.message);
+
+  const countries = new Set(
+    (countriesResult.data ?? [])
+      .map((row) => row.country)
+      .filter((country): country is string => typeof country === "string" && country.length > 0)
+  );
+
+  return {
+    total: totalResult.count ?? 0,
+    today: todayResult.count ?? 0,
+    countries: countries.size,
+  };
 }
 
 export async function fetchCakeByPublicId(publicId: string): Promise<CakeRecord | null> {
