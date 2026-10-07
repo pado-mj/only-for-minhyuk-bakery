@@ -20,6 +20,7 @@ export interface DecorationAsset {
   // (see public/assets) — CanvasObjectSprite renders whichever is set.
   Icon?: ComponentType<SVGProps<SVGSVGElement>>;
   imageSrc?: string;
+  isNew?: boolean;
 }
 
 const DECO_IMG = "/assets/decorations";
@@ -30,7 +31,10 @@ export const DECORATION_ASSETS: DecorationAsset[] = [
   { id: "dog-cool", category: "dog", labelKo: "쿨한 강아지", labelEn: "Cool Dog", labelJa: "クールなわんこ", imageSrc: `${DECO_IMG}/dog-cool.png` },
   { id: "dog-party", category: "dog", labelKo: "파티 강아지", labelEn: "Party Dog", labelJa: "パーティわんこ", imageSrc: `${DECO_IMG}/dog-party.png` },
   { id: "dog-love", category: "dog", labelKo: "사랑둥이 강아지", labelEn: "Loving Dog", labelJa: "ラブわんこ", imageSrc: `${DECO_IMG}/dog-love.png` },
+  { id: "dog-singing", category: "dog", labelKo: "노래하는 가나디", labelEn: "Singing Puppy", labelJa: "歌うわんこ", imageSrc: `${DECO_IMG}/노래하는가나디.png`, isNew: true },
   { id: "whale", category: "whale", labelKo: "고래", labelEn: "Whale", labelJa: "クジラ", imageSrc: `${DECO_IMG}/whale.png` },
+  { id: "whale-go5rae", category: "whale", labelKo: "go5rae", labelEn: "go5rae", labelJa: "go5rae", imageSrc: `${DECO_IMG}/고래2.png`, isNew: true },
+  { id: "whale-goorae", category: "whale", labelKo: "고오래", labelEn: "고오래", labelJa: "고오래", imageSrc: `${DECO_IMG}/고오래.png`, isNew: true },
   { id: "bear", category: "animal", labelKo: "곰돌이", labelEn: "Bear", labelJa: "くま", imageSrc: `${DECO_IMG}/bear.png` },
   { id: "hamster", category: "animal", labelKo: "햄스터", labelEn: "Hamster", labelJa: "ハムスター", imageSrc: `${DECO_IMG}/hamster.png` },
   { id: "frog", category: "animal", labelKo: "개구리", labelEn: "Frog", labelJa: "かえる", imageSrc: `${DECO_IMG}/frog.png` },
@@ -45,10 +49,14 @@ export const DECORATION_ASSETS: DecorationAsset[] = [
   { id: "firework", category: "decor", labelKo: "폭죽", labelEn: "Firework", labelJa: "花火", imageSrc: `${DECO_IMG}/firework.png` },
   { id: "palette", category: "decor", labelKo: "팔레트", labelEn: "Palette", labelJa: "パレット", imageSrc: `${DECO_IMG}/palette.png` },
   { id: "brush", category: "decor", labelKo: "붓", labelEn: "Paintbrush", labelJa: "筆", imageSrc: `${DECO_IMG}/brush.png` },
+  { id: "guitar", category: "decor", labelKo: "기타", labelEn: "Guitar", labelJa: "ギター", imageSrc: `${DECO_IMG}/guitar.png`, isNew: true },
+  { id: "sunglasses-round", category: "decor", labelKo: "선구리", labelEn: "Sunglasses", labelJa: "サングラス", imageSrc: `${DECO_IMG}/선구리.png`, isNew: true },
+  { id: "sunglasses-black", category: "decor", labelKo: "선구라스", labelEn: "Black Sunglasses", labelJa: "黒サングラス", imageSrc: `${DECO_IMG}/선구라스.png`, isNew: true },
+  { id: "headphones", category: "decor", labelKo: "헤드폰", labelEn: "Headphones", labelJa: "ヘッドホン", imageSrc: `${DECO_IMG}/헤드폰.png`, isNew: true },
   { id: "ribbon-blue", category: "ribbon", labelKo: "블루 리본", labelEn: "Blue Ribbon", labelJa: "ブルーリボン", imageSrc: `${DECO_IMG}/ribbon-blue.png` },
   { id: "ribbon-pink", category: "ribbon", labelKo: "핑크 리본", labelEn: "Pink Ribbon", labelJa: "ピンクリボン", imageSrc: `${DECO_IMG}/ribbon-pink.png` },
 
-  // Hand-coded SVG assets (no illustrated version yet)
+  // Hand-coded SVG assets
   { id: "fruit-strawberry", category: "fruit", labelKo: "딸기", labelEn: "Strawberry", labelJa: "いちご", Icon: Strawberry },
   { id: "fruit-cherry", category: "fruit", labelKo: "체리", labelEn: "Cherry", labelJa: "さくらんぼ", Icon: Cherry },
   { id: "fruit-blueberry", category: "fruit", labelKo: "블루베리", labelEn: "Blueberry", labelJa: "ブルーベリー", Icon: Blueberry },
