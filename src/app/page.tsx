@@ -1,10 +1,13 @@
 import { HomeClient } from "@/components/home/HomeClient";
-import { computeStats, fetchPublishedCakes } from "@/lib/supabase/queries";
+import { fetchHomeStats, fetchPublishedCakesPage, HOME_PAGE_SIZE } from "@/lib/supabase/queries";
 
-export const dynamic = "force-dynamic";
+export const revalidate = 60;
 
 export default async function HomePage() {
-  const cakes = await fetchPublishedCakes();
-  const stats = computeStats(cakes);
-  return <HomeClient cakes={cakes} stats={stats} />;
+  const [{ cakes, hasMore }, stats] = await Promise.all([
+    fetchPublishedCakesPage({ limit: HOME_PAGE_SIZE, sort: "new" }),
+    fetchHomeStats(),
+  ]);
+
+  return <HomeClient initialCakes={cakes} initialHasMore={hasMore} stats={stats} />;
 }
