@@ -84,7 +84,13 @@ function CompleteContent() {
     setSaving(true);
     setSaveError(false);
     try {
-      const capture = exportImage ? Promise.resolve(exportImage) : renderExportImage();
+      // Always capture the current export DOM when the user taps Save.
+      // Reusing the auto-generated preview could save a stale frame when
+      // inline SVG decorations (e.g. roses) had not finished painting yet.
+      await new Promise<void>((resolve) =>
+        requestAnimationFrame(() => requestAnimationFrame(() => resolve()))
+      );
+      const capture = renderExportImage();
       const timeout = new Promise<never>((_, reject) =>
         setTimeout(() => reject(new Error("timeout")), 10000)
       );
