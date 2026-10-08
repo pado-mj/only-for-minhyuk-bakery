@@ -26,15 +26,18 @@ export interface DecorationAsset {
 const DECO_IMG = "/assets/decorations";
 
 export const DECORATION_ASSETS: DecorationAsset[] = [
-  // Illustrated (Midjourney-sourced, background-removed) assets
+  // Dogs, whales, animals, decorative gifts/cream, ribbons, and flowers are grouped together.
   { id: "dog-plain", category: "dog", labelKo: "강아지", labelEn: "Dog", labelJa: "わんこ", imageSrc: `${DECO_IMG}/dog-plain.png` },
   { id: "dog-cool", category: "dog", labelKo: "쿨한 강아지", labelEn: "Cool Dog", labelJa: "クールなわんこ", imageSrc: `${DECO_IMG}/dog-cool.png` },
   { id: "dog-party", category: "dog", labelKo: "파티 강아지", labelEn: "Party Dog", labelJa: "パーティわんこ", imageSrc: `${DECO_IMG}/dog-party.png` },
   { id: "dog-love", category: "dog", labelKo: "사랑둥이 강아지", labelEn: "Loving Dog", labelJa: "ラブわんこ", imageSrc: `${DECO_IMG}/dog-love.png` },
-  { id: "dog-singing", category: "dog", labelKo: "노래하는 가나디", labelEn: "Singing Puppy", labelJa: "歌うわんこ", imageSrc: `${DECO_IMG}/노래하는가나디.png`, isNew: true },
+  { id: "dog-singing", category: "dog", labelKo: "노래하는 가나디", labelEn: "Singing Puppy", labelJa: "歌うわんこ", imageSrc: `${DECO_IMG}/노래하는가나디.png` },
+  { id: "dog-ongsim", category: "dog", labelKo: "옹심 가나디", labelEn: "Ongsim Puppy", labelJa: "オンシムわんこ", imageSrc: `${DECO_IMG}/옹심이가나디.png`, isNew: true },
+  { id: "dog-riching", category: "dog", labelKo: "리칭 가나디", labelEn: "Riching Puppy", labelJa: "リチンわんこ", imageSrc: `${DECO_IMG}/리칭미냐.png`, isNew: true },
+  { id: "dog-suit", category: "dog", labelKo: "수트 가나디", labelEn: "Suit Puppy", labelJa: "スーツわんこ", imageSrc: `${DECO_IMG}/수트가나디.png`, isNew: true },
   { id: "whale", category: "whale", labelKo: "고래", labelEn: "Whale", labelJa: "クジラ", imageSrc: `${DECO_IMG}/whale.png` },
-  { id: "whale-go5rae", category: "whale", labelKo: "go5rae", labelEn: "go5rae", labelJa: "go5rae", imageSrc: `${DECO_IMG}/고래2.png`, isNew: true },
-  { id: "whale-goorae", category: "whale", labelKo: "고오래", labelEn: "고오래", labelJa: "고오래", imageSrc: `${DECO_IMG}/고오래.png`, isNew: true },
+  { id: "whale-go5rae", category: "whale", labelKo: "go5rae", labelEn: "go5rae", labelJa: "go5rae", imageSrc: `${DECO_IMG}/고래2.png` },
+  { id: "whale-goorae", category: "whale", labelKo: "고오래", labelEn: "Goorae", labelJa: "クジラ", imageSrc: `${DECO_IMG}/고오래.png` },
   { id: "bear", category: "animal", labelKo: "곰돌이", labelEn: "Bear", labelJa: "くま", imageSrc: `${DECO_IMG}/bear.png` },
   { id: "hamster", category: "animal", labelKo: "햄스터", labelEn: "Hamster", labelJa: "ハムスター", imageSrc: `${DECO_IMG}/hamster.png` },
   { id: "frog", category: "animal", labelKo: "개구리", labelEn: "Frog", labelJa: "かえる", imageSrc: `${DECO_IMG}/frog.png` },
@@ -47,16 +50,24 @@ export const DECORATION_ASSETS: DecorationAsset[] = [
   { id: "clover", category: "decor", labelKo: "네잎클로버", labelEn: "Clover", labelJa: "クローバー", imageSrc: `${DECO_IMG}/clover.png` },
   { id: "sparkle-star", category: "decor", labelKo: "별빛", labelEn: "Sparkle", labelJa: "きらきら", imageSrc: `${DECO_IMG}/sparkle-star.png` },
   { id: "firework", category: "decor", labelKo: "폭죽", labelEn: "Firework", labelJa: "花火", imageSrc: `${DECO_IMG}/firework.png` },
+  { id: "gift-box", category: "decor", labelKo: "선물상자", labelEn: "Gift Box", labelJa: "プレゼント", imageSrc: `${DECO_IMG}/선물상자.png`, isNew: true },
+  { id: "gift-boxes", category: "decor", labelKo: "선물상자 꾸러미", labelEn: "Gift Boxes", labelJa: "プレゼントセット", imageSrc: `${DECO_IMG}/선물상자꾸러미.png`, isNew: true },
+  { id: "christmas-gifts", category: "decor", labelKo: "크리스마스 선물", labelEn: "Christmas Gifts", labelJa: "クリスマスプレゼント", imageSrc: `${DECO_IMG}/크리스마스선물.png`, isNew: true },
+  { id: "deco-1103", category: "decor", labelKo: "1103", labelEn: "1103", labelJa: "1103", imageSrc: `${DECO_IMG}/1103.png`, isNew: true },
+  { id: "whipped-cream", category: "decor", labelKo: "생크림", labelEn: "Whipped Cream", labelJa: "ホイップクリーム", imageSrc: `${DECO_IMG}/생크림.png`, isNew: true },
+  { id: "meringue-cream", category: "decor", labelKo: "머랭크림", labelEn: "Meringue Cream", labelJa: "メレンゲクリーム", imageSrc: `${DECO_IMG}/머랭크림.png`, isNew: true },
   { id: "palette", category: "decor", labelKo: "팔레트", labelEn: "Palette", labelJa: "パレット", imageSrc: `${DECO_IMG}/palette.png` },
   { id: "brush", category: "decor", labelKo: "붓", labelEn: "Paintbrush", labelJa: "筆", imageSrc: `${DECO_IMG}/brush.png` },
-  { id: "guitar", category: "decor", labelKo: "기타", labelEn: "Guitar", labelJa: "ギター", imageSrc: `${DECO_IMG}/guitar.png`, isNew: true },
-  { id: "sunglasses-round", category: "decor", labelKo: "선구리", labelEn: "Sunglasses", labelJa: "サングラス", imageSrc: `${DECO_IMG}/선구리.png`, isNew: true },
-  { id: "sunglasses-black", category: "decor", labelKo: "선구라스", labelEn: "Black Sunglasses", labelJa: "黒サングラス", imageSrc: `${DECO_IMG}/선구라스.png`, isNew: true },
-  { id: "headphones", category: "decor", labelKo: "헤드폰", labelEn: "Headphones", labelJa: "ヘッドホン", imageSrc: `${DECO_IMG}/헤드폰.png`, isNew: true },
+  { id: "guitar", category: "decor", labelKo: "기타", labelEn: "Guitar", labelJa: "ギター", imageSrc: `${DECO_IMG}/guitar.png` },
+  { id: "sunglasses-round", category: "decor", labelKo: "선구리", labelEn: "Sunglasses", labelJa: "サングラス", imageSrc: `${DECO_IMG}/선구리.png` },
+  { id: "sunglasses-black", category: "decor", labelKo: "선구라스", labelEn: "Black Sunglasses", labelJa: "黒サングラス", imageSrc: `${DECO_IMG}/선구라스.png` },
+  { id: "headphones", category: "decor", labelKo: "헤드폰", labelEn: "Headphones", labelJa: "ヘッドホン", imageSrc: `${DECO_IMG}/헤드폰.png` },
   { id: "ribbon-blue", category: "ribbon", labelKo: "블루 리본", labelEn: "Blue Ribbon", labelJa: "ブルーリボン", imageSrc: `${DECO_IMG}/ribbon-blue.png` },
   { id: "ribbon-pink", category: "ribbon", labelKo: "핑크 리본", labelEn: "Pink Ribbon", labelJa: "ピンクリボン", imageSrc: `${DECO_IMG}/ribbon-pink.png` },
+  { id: "flower-bouquet", category: "rose", labelKo: "꽃다발", labelEn: "Flower Bouquet", labelJa: "花束", imageSrc: `${DECO_IMG}/꽃다발.png`, isNew: true },
+  { id: "flower-bouquet-blue", category: "rose", labelKo: "파란 꽃다발", labelEn: "Blue Flower Bouquet", labelJa: "青い花束", imageSrc: `${DECO_IMG}/파란꽃다발.png`, isNew: true },
 
-  // Hand-coded SVG assets
+  // Hand-coded SVG decorations
   { id: "fruit-strawberry", category: "fruit", labelKo: "딸기", labelEn: "Strawberry", labelJa: "いちご", Icon: Strawberry },
   { id: "fruit-cherry", category: "fruit", labelKo: "체리", labelEn: "Cherry", labelJa: "さくらんぼ", Icon: Cherry },
   { id: "fruit-blueberry", category: "fruit", labelKo: "블루베리", labelEn: "Blueberry", labelJa: "ブルーベリー", Icon: Blueberry },
