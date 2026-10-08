@@ -99,7 +99,7 @@ function CompleteContent() {
       setExportImage(dataUrl);
       const link = document.createElement("a");
       link.href = dataUrl;
-      link.download = `only-for-minhyuk-bakery-cake-${record.publicNumber}.png`;
+      link.download = `민혁이의 생일상 🎂-${record.publicNumber}.png`;
       document.body.appendChild(link);
       link.click();
       link.remove();
@@ -134,13 +134,11 @@ function CompleteContent() {
             <CakeCanvas cakeData={record.cakeData} candlesLit={false} rounded={false} />
           </div>
           <div style={{ width: 900, height: 180, display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", fontFamily: '-apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo", "Malgun Gothic", sans-serif' }}>
-            <div style={{ fontSize: 34, fontWeight: 800, color: "#3a2e22", letterSpacing: "0.02em" }}>ONLY FOR MINHYUK BAKERY</div>
-            <div style={{ marginTop: 10, fontSize: 26, color: "#7a6a52" }}>made by {record.nickname}</div>
+            <div style={{ fontSize: 34, fontWeight: 800, color: "#3a2e22", letterSpacing: "0.02em" }}>민혁이의 생일상 🎂</div>
           </div>
         </div>
       </div>
 
-      <p className="mt-4 text-sm font-semibold text-ink">{record.nickname}</p>
 
       <div className="mt-6 flex w-full max-w-xs gap-2">
         <button
