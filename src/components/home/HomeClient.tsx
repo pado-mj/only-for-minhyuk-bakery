@@ -55,15 +55,20 @@ export function HomeClient({ initialCakes, initialHasMore, stats }: { initialCak
   const [featureState, setFeatureState] = useState<"idle" | "saving" | "success" | "error">("idle");
   const [notices, setNotices] = useState<Array<{ id: number; title: string; body: string; published_at: string | null }>>([]);
   const [noticeIndex, setNoticeIndex] = useState(0);
+  const [noticeAutoPaused, setNoticeAutoPaused] = useState(false);
   const noticeTouchStartX = useRef<number | null>(null);
   const moveNotice = (step: number) => setNoticeIndex((current) => (current + step + notices.length) % notices.length);
+  const navigateNotice = (step: number) => {
+    setNoticeAutoPaused(true);
+    moveNotice(step);
+  };
   useEffect(() => {
-    if (notices.length < 2) return;
+    if (notices.length < 2 || noticeAutoPaused) return;
     const interval = window.setInterval(() => {
       setNoticeIndex((current) => (current + 1) % notices.length);
-    }, 2000);
+    }, 4000);
     return () => window.clearInterval(interval);
-  }, [notices.length]);
+  }, [notices.length, noticeAutoPaused]);
 
   const countryUnit = stats.countries === 1 ? t.home.country : t.home.countries;
 
@@ -200,7 +205,7 @@ export function HomeClient({ initialCakes, initialHasMore, stats }: { initialCak
           >
             <div className="mx-auto flex max-w-[420px] items-center gap-2">
               {notices.length > 1 && (
-                <button type="button" onClick={() => moveNotice(-1)} aria-label="이전 공지" className="shrink-0 rounded-full border border-[#8b7357]/25 px-1.5 py-0.5 text-sm leading-none text-navy hover:bg-[#efe5d4] focus-visible:outline focus-visible:outline-2 focus-visible:outline-navy">‹</button>
+                <button type="button" onClick={() => navigateNotice(-1)} aria-label="이전 공지" className="shrink-0 rounded-full border border-[#8b7357]/25 px-1.5 py-0.5 text-sm leading-none text-navy hover:bg-[#efe5d4] focus-visible:outline focus-visible:outline-2 focus-visible:outline-navy">‹</button>
               )}
               <div className="min-w-0 flex-1" aria-live="off">
                 <div className="flex items-center justify-between gap-2">
@@ -220,7 +225,7 @@ export function HomeClient({ initialCakes, initialHasMore, stats }: { initialCak
                 )}
               </div>
               {notices.length > 1 && (
-                <button type="button" onClick={() => moveNotice(1)} aria-label="다음 공지" className="shrink-0 rounded-full px-2 py-2 text-lg text-navy hover:bg-[#efe5d4]">›</button>
+                <button type="button" onClick={() => navigateNotice(1)} aria-label="다음 공지" className="shrink-0 rounded-full px-2 py-2 text-lg text-navy hover:bg-[#efe5d4]">›</button>
               )}
             </div>
           </section>
