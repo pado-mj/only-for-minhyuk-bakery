@@ -42,7 +42,7 @@ interface EditorState {
   removeObject: (id: string) => void;
   duplicateObject: (id: string) => void;
   flipObject: (id: string) => void;
-  reorderLayer: (id: string, direction: "forward" | "backward") => void;
+  reorderLayer: (id: string, direction: "forward" | "backward" | "front" | "back") => void;
   selectObject: (id: string | null) => void;
   undo: () => void;
   redo: () => void;
@@ -166,19 +166,30 @@ export const useEditorStore = create<EditorState>((set, get) => ({
 
   reorderLayer: (id, direction) => {
     const { present, past } = get();
-    const objects = [...present.objects].sort((a, b) => a.zIndex - b.zIndex);
-    const idx = objects.findIndex((o) => o.id === id);
-    if (idx === -1) return;
-    const swapWith = direction === "forward" ? idx + 1 : idx - 1;
-    if (swapWith < 0 || swapWith >= objects.length) return;
-    if (objects[swapWith].layer !== objects[idx].layer) return;
-    const tmp = objects[idx].zIndex;
-    objects[idx].zIndex = objects[swapWith].zIndex;
-    objects[swapWith].zIndex = tmp;
+    const selected = present.objects.find((o) => o.id === id);
+    if (!selected) return;
+    // The cake base is not a canvas object. Preserve layer boundaries,
+    // and only reorder objects within the selected object's layer.
+    const peers = present.objects
+      .filter((o) => o.layer === selected.layer)
+      .sort((a, b) => a.zIndex - b.zIndex);
+    const index = peers.findIndex((o) => o.id === id);
+    const destination = direction === "front" ? peers.length - 1
+      : direction === "back" ? 0
+      : direction === "forward" ? index + 1 : index - 1;
+    if (index === -1 || destination < 0 || destination >= peers.length || index === destination) return;
+    const reordered = [...peers];
+    const [moving] = reordered.splice(index, 1);
+    reordered.splice(destination, 0, moving);
+    const zValues = peers.map((o) => o.zIndex);
+    const nextZ = new Map(reordered.map((o, i) => [o.id, zValues[i]]));
     set({
       past: [...past, clone(present)].slice(-HISTORY_LIMIT),
       future: [],
-      present: { ...present, objects },
+      present: {
+        ...present,
+        objects: present.objects.map((o) => nextZ.has(o.id) ? { ...o, zIndex: nextZ.get(o.id)! } : o),
+      },
     });
   },
 
