@@ -57,6 +57,14 @@ export function HomeClient({ initialCakes, initialHasMore, stats }: { initialCak
   const [noticeIndex, setNoticeIndex] = useState(0);
   const noticeTouchStartX = useRef<number | null>(null);
   const moveNotice = (step: number) => setNoticeIndex((current) => (current + step + notices.length) % notices.length);
+  useEffect(() => {
+    if (notices.length < 2) return;
+    const interval = window.setInterval(() => {
+      setNoticeIndex((current) => (current + 1) % notices.length);
+    }, 2000);
+    return () => window.clearInterval(interval);
+  }, [notices.length]);
+
   const countryUnit = stats.countries === 1 ? t.home.country : t.home.countries;
 
   useEffect(() => {
@@ -192,7 +200,7 @@ export function HomeClient({ initialCakes, initialHasMore, stats }: { initialCak
           >
             <div className="mx-auto flex max-w-[420px] items-center gap-2">
               {notices.length > 1 && (
-                <button type="button" onClick={() => moveNotice(-1)} aria-label="이전 공지" className="shrink-0 rounded-full px-2 py-2 text-lg text-navy hover:bg-[#efe5d4]">‹</button>
+                <button type="button" onClick={() => moveNotice(-1)} aria-label="이전 공지" className="shrink-0 rounded-full border border-[#8b7357]/25 px-1.5 py-0.5 text-sm leading-none text-navy hover:bg-[#efe5d4] focus-visible:outline focus-visible:outline-2 focus-visible:outline-navy">‹</button>
               )}
               <div className="min-w-0 flex-1" aria-live="polite">
                 <div className="flex items-center justify-between gap-2">
