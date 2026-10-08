@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { BirthdayTable, type SortMode } from "@/components/home/BirthdayTable";
@@ -53,7 +53,10 @@ export function HomeClient({ initialCakes, initialHasMore, stats }: { initialCak
   const [featureText, setFeatureText] = useState("");
   const [featureType, setFeatureType] = useState<"feature" | "bug" | "message">("feature");
   const [featureState, setFeatureState] = useState<"idle" | "saving" | "success" | "error">("idle");
-  const [notices, setNotices] = useState<Array<{ id: number; title: string; body: string }>>([]);
+  const [notices, setNotices] = useState<Array<{ id: number; title: string; body: string; published_at: string | null }>>([]);
+  const [noticeIndex, setNoticeIndex] = useState(0);
+  const noticeTouchStartX = useRef<number | null>(null);
+  const moveNotice = (step: number) => setNoticeIndex((current) => (current + step + notices.length) % notices.length);
   const countryUnit = stats.countries === 1 ? t.home.country : t.home.countries;
 
   useEffect(() => {
@@ -175,13 +178,42 @@ export function HomeClient({ initialCakes, initialHasMore, stats }: { initialCak
       {notices.length > 0 && (
         <>
           <div className="h-16" aria-hidden="true" />
-          <section className="fixed bottom-0 left-1/2 z-40 w-full max-w-[480px] -translate-x-1/2 border-t border-[#8b7357]/35 bg-[#fffaf0]/95 px-5 py-3 text-left shadow-[0_-4px_16px_rgba(58,46,34,0.08)] backdrop-blur" aria-label="Notice">
-            <div className="mx-auto flex max-w-[400px] items-center gap-3">
-              <p className="shrink-0 text-[10px] font-bold tracking-[0.16em] text-navy">NOTICE</p>
-              <div className="min-w-0 flex-1">
-                <p className="truncate text-xs font-bold text-ink">{notices[0].title}</p>
-                {notices[0].body !== notices[0].title && <p className="truncate text-[11px] text-ink-soft">{notices[0].body}</p>}
+          <section
+            className="fixed bottom-0 left-1/2 z-40 w-full max-w-[480px] -translate-x-1/2 border-t border-[#8b7357]/35 bg-[#fffaf0]/95 px-4 py-3 text-left shadow-[0_-4px_16px_rgba(58,46,34,0.08)] backdrop-blur"
+            aria-label="Notices"
+            aria-roledescription="carousel"
+            onTouchStart={(event) => { noticeTouchStartX.current = event.touches[0]?.clientX ?? null; }}
+            onTouchEnd={(event) => {
+              if (noticeTouchStartX.current === null || notices.length < 2) return;
+              const delta = event.changedTouches[0].clientX - noticeTouchStartX.current;
+              noticeTouchStartX.current = null;
+              if (Math.abs(delta) > 45) moveNotice(delta < 0 ? 1 : -1);
+            }}
+          >
+            <div className="mx-auto flex max-w-[420px] items-center gap-2">
+              {notices.length > 1 && (
+                <button type="button" onClick={() => moveNotice(-1)} aria-label="이전 공지" className="shrink-0 rounded-full px-2 py-2 text-lg text-navy hover:bg-[#efe5d4]">‹</button>
+              )}
+              <div className="min-w-0 flex-1" aria-live="polite">
+                <div className="flex items-center justify-between gap-2">
+                  <p className="text-[10px] font-bold tracking-[0.16em] text-navy">NOTICE</p>
+                  <div className="flex items-center gap-2 text-[10px] text-ink-soft">
+                    {notices[noticeIndex]?.published_at && (
+                      <time dateTime={notices[noticeIndex].published_at!}>
+                        {new Intl.DateTimeFormat("ko-KR", { timeZone: "Asia/Seoul", year: "2-digit", month: "2-digit", day: "2-digit" }).format(new Date(notices[noticeIndex].published_at!))}
+                      </time>
+                    )}
+                    {notices.length > 1 && <span>{noticeIndex + 1} / {notices.length}</span>}
+                  </div>
+                </div>
+                <p className="truncate text-xs font-bold text-ink">{notices[noticeIndex]?.title}</p>
+                {notices[noticeIndex]?.body !== notices[noticeIndex]?.title && (
+                  <p className="truncate text-[11px] text-ink-soft">{notices[noticeIndex]?.body}</p>
+                )}
               </div>
+              {notices.length > 1 && (
+                <button type="button" onClick={() => moveNotice(1)} aria-label="다음 공지" className="shrink-0 rounded-full px-2 py-2 text-lg text-navy hover:bg-[#efe5d4]">›</button>
+              )}
             </div>
           </section>
         </>
