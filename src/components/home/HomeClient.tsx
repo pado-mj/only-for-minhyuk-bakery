@@ -3,6 +3,7 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
+import { UchiwaEventPopup } from "@/components/home/UchiwaEventPopup";
 import { BirthdayTable, type SortMode } from "@/components/home/BirthdayTable";
 import { LocaleSwitcher } from "@/components/ui/LocaleSwitcher";
 import { useI18n } from "@/lib/i18n/context";
@@ -144,6 +145,7 @@ export function HomeClient({ initialCakes, initialHasMore, stats }: { initialCak
 
   return (
     <div>
+      <UchiwaEventPopup />
       <header className="paper-texture px-5 pb-6 pt-14 text-center">
         <div className="fixed left-1/2 top-0 z-40 flex w-full max-w-[480px] -translate-x-1/2 justify-end border-b border-ink/10 bg-cream/90 px-5 py-2.5 backdrop-blur">
           <LocaleSwitcher />
